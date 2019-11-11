@@ -1,0 +1,199 @@
+package com.example.Project1.models;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private int recordNumber;
+    private String lastName;
+    private String firstName;
+    private String homeAddress;
+    private String telephoneNo;
+
+    private LocalDate hireDate;
+
+    private LocalDate leaveDate;
+    private boolean active;
+
+    private String contractType;
+    @ManyToOne
+    private Company company;
+    @ManyToOne
+    private BusinessUnit businessUnit;
+    @ManyToOne
+
+    private Department department;
+    @ManyToOne
+    private Unit unit;
+    private String position;
+
+    public Employee() {
+    }
+
+
+    public Employee(int recordNumber, String lastName, String firstName, String homeAddress, String telephoneNo, LocalDate hireDate, LocalDate leaveDate, boolean active, String contractType, Unit unit, String position) {
+        this.recordNumber=recordNumber;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.homeAddress = homeAddress;
+        this.telephoneNo = telephoneNo;
+        this.hireDate = hireDate;
+        this.leaveDate = leaveDate;
+        this.active = active;
+        this.contractType = contractType;
+        this.unit = unit;
+        this.position = position;
+        this.setDepartment();
+        this.setBusinessUnit();
+        this.setCompany();
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public int getRecordNumber() {
+        return recordNumber;
+    }
+
+    public void setRecordNumber(int recordNumber) {
+        this.recordNumber = recordNumber;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public String getTelephoneNo() {
+
+        return telephoneNo;
+    }
+
+    public void setTelephoneNo(String telephoneNo) {
+
+        this.telephoneNo = telephoneNo;
+    }
+
+    public LocalDate getHireDate() {
+
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public LocalDate getLeaveDate() {
+        return leaveDate;
+    }
+
+    public void setLeaveDate(LocalDate leaveDate) {
+        this.leaveDate = leaveDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    private void setCompany() {
+        this.company = this.businessUnit.getCompany();
+    }
+
+    public BusinessUnit getBusinessUnit() {
+        return businessUnit;
+    }
+
+    private void setBusinessUnit() {
+        this.businessUnit = this.department.getBusinessUnit();
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    private void setDepartment() {
+        this.department = this.unit.getDepartment();
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+
+        this.unit = unit;
+        this.setDepartment();
+        this.setBusinessUnit();
+        this.setCompany();
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getCompanyName() {
+        return this.company.getName();
+    }
+
+    public String getBusinessUnitName() {
+        return this.businessUnit.getName();
+    }
+
+    public String getDepartmentName() {
+        return this.department.getName();
+    }
+
+    public String getUnitName() {
+        return this.unit.getName();
+    }
+}
