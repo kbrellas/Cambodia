@@ -4,7 +4,9 @@ import com.example.Project1.mappers.EmployeeMapper;
 import com.example.Project1.implementations.SearchEmployeeStrategy;
 import com.example.Project1.models.EmployeeResponse;
 import com.example.Project1.models.Employee;
+import com.example.Project1.models.Error;
 import com.example.Project1.implementations.SearchEmployeeStrategyFactory;
+import com.example.Project1.models.GenericResponse;
 import com.example.Project1.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,14 +26,17 @@ public class EmployeeService {
     @Autowired
     private SearchEmployeeStrategyFactory factory;
 
-    public List<EmployeeResponse> getAllEmployees(){
+    public GenericResponse<List<EmployeeResponse>> getAllEmployees(){
         Iterable<Employee> retrievedEmployees= repository.findAll();
         List<EmployeeResponse> employees= new ArrayList<>();
         for (Employee employee: retrievedEmployees
              ) {
             employees.add(mapper.mapEmployeeToEmployeeResponse(employee));
         }
-        return employees;
+        if(employees.isEmpty()){
+            return new GenericResponse<>(new Error(0, "Empty Repository","Please add Employees"));
+        }
+        return new GenericResponse<>(employees);
     }
 
 
