@@ -147,7 +147,5 @@ public class Project1Application implements CommandLineRunner {
 		employeeRepository.save(emp3);
 		employeeRepository.save(emp4);
 		employeeRepository.save(emp5);
-
-
 	}
 }
