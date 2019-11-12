@@ -1,6 +1,9 @@
 package com.example.Project1.services;
 
 import com.example.Project1.mappers.BusinessUnitMapper;
+import com.example.Project1.models.Error;
+import com.example.Project1.models.GenericResponse;
+import com.example.Project1.models.Unit;
 import com.example.Project1.repositories.BusinessUnitRepository;
 import com.example.Project1.models.BusinessUnit;
 import com.example.Project1.models.BusinessUnitResponse;
@@ -19,6 +22,25 @@ public class BusinessUnitService {
     @Autowired
     private BusinessUnitRepository repository;
 
+    public GenericResponse<List<BusinessUnitResponse>> getAllBusinessUnits(){
+        try{
+            Iterable<BusinessUnit> businessUnits = repository.findAll();
+            List<BusinessUnitResponse> retrievedBusinessUnits = new ArrayList<>();
+            for (BusinessUnit businessUnit : businessUnits){
+                retrievedBusinessUnits.add(mapper.mapBusinessUnitToBusinessUnitResponse(businessUnit));
+            }
+            return new GenericResponse<>(retrievedBusinessUnits);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+            Error error = new Error(0,"Internal Server Error", "Unable to retrieve data");
+            return new GenericResponse<>(error);
+        }
+
+    }
+/*
     public List<BusinessUnitResponse> getAllBusinessUnits(){
         Iterable<BusinessUnit> retrievedBusinessUnit= repository.findAll();
         List<BusinessUnitResponse> businessUnits= new ArrayList<>();
@@ -29,6 +51,7 @@ public class BusinessUnitService {
         return businessUnits;
 
     }
+*/
 
 
 }
