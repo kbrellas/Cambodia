@@ -2,14 +2,18 @@ package com.example.Project1;
 
 import com.example.Project1.mappers.EmployeeMapper;
 import com.example.Project1.models.*;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.swing.table.TableRowSorter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.Matchers.containsInAnyOrder;
 
 public class EmployeeMapperShould {
 
@@ -23,7 +27,10 @@ public class EmployeeMapperShould {
     private BusinessUnit businessUnit;
     private Company company;
     private List<Employee> inputList=new ArrayList<>();
-    private List<EmployeeResponse> outputList= new ArrayList<>();
+    private List<EmployeeResponse> expectedOutputList= new ArrayList<>();
+    private EmployeeResponse expectedOutput1;
+    private EmployeeResponse expectedOutput2;
+
 
     @Before
     public void setup(){
@@ -49,8 +56,12 @@ public class EmployeeMapperShould {
 
         output = mapper.mapEmployeeToEmployeeResponse(input);
         output2 =mapper.mapEmployeeToEmployeeResponse(input2);
-        outputList.add(output);
-        outputList.add(output2);
+
+        expectedOutput1= new EmployeeResponse(1,234,"Jack Sparrow", "4353637586","2015/03/13 - present", "active","UniSystems","Manager",unit.getName());
+        expectedOutput2= new EmployeeResponse(2,238,"Jacker Spar", "4353637585","2015/03/13 - 2019/02/11", "inactive","UniSystems","Manager",unit.getName());
+
+        expectedOutputList.add(expectedOutput1);
+        expectedOutputList.add(expectedOutput2);
 
     }
 
@@ -120,7 +131,11 @@ public class EmployeeMapperShould {
 
     @Test
     public void returnEmployeeResponseListWhenGivenEmployeeList(){
-        Assert.assertThat(outputList, Matchers.samePropertyValuesAs(mapper.mapAllEmployees(inputList)));
+        List<EmployeeResponse> outputMapper= mapper.mapAllEmployees(inputList);
+
+        Assert.assertThat(outputMapper.get(0), Matchers.samePropertyValuesAs(expectedOutputList.get(0)));
+        Assert.assertThat(outputMapper.get(1), Matchers.samePropertyValuesAs(expectedOutputList.get(1)));
+
     }
 
 }
