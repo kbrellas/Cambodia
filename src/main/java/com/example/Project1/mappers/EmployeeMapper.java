@@ -5,6 +5,7 @@ import com.example.Project1.models.Employee;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class EmployeeMapper {
                 employee.getRecordNumber(),
                 mapFullName(employee),
                 employee.getTelephoneNo(),
-                mapWorkingPeriod(employee.getHireDate(),employee.getLeaveDate()),
+                mapWorkingPeriod(employee),
                 mapStatus(employee),
                 employee.getContractType(),
                 employee.getPosition(),
@@ -48,13 +49,26 @@ public class EmployeeMapper {
         return employee.getFirstName()+" "+employee.getLastName();
     }
 
-    private String mapWorkingPeriod(LocalDate hireDate, LocalDate leaveDate){
-        if(leaveDate==null){
-            return hireDate.toString().replace("-","/")+" - present";
-        }
-        else{
-            return hireDate.toString().replace("-","/")+" - "+leaveDate.toString().replace("-","/");
-        }
+    private String mapWorkingPeriod (Employee emp) {
 
+        return hiredDateResponse(emp) + "-"+ leaveDateResponse(emp);
     }
+
+    private String leaveDateResponse(Employee emp) {
+
+        if (emp.getLeaveDate() == null){
+            return "present";
+
+        }
+        else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+            return formatter.format(emp.getLeaveDate());
+        }
+    }
+
+    private String hiredDateResponse (Employee employee){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(("dd/MM/YYYY"));
+        return formatter.format(employee.getHireDate());
+    }
+
 }
