@@ -28,7 +28,7 @@ public class CompanyService {
                 ) {
             companies.add(mapper.mapCompanyToCompanyResponse(company));
         }
-        if (!companies.isEmpty()){
+        if (companies.isEmpty()){
             return new GenericResponse<>(new Error(0,"Error","Nothing found"));
         }
 
