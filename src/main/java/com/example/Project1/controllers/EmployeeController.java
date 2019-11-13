@@ -22,14 +22,14 @@ public class EmployeeController {
     public ResponseEntity getAllEmployees(){
         GenericResponse<List<EmployeeResponse>> response =new GenericResponse(service.getAllEmployees());
         if (response.getError()!=null){
-            return new ResponseEntity<>(
+            return new ResponseEntity(
                     response.getError(),
                     null,
                     HttpStatus.NO_CONTENT
             );
         }
 
-        return new ResponseEntity<>(
+        return new ResponseEntity(
                 response.getData(),
                 null,
                 HttpStatus.OK

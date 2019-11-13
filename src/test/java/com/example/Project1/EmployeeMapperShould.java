@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import javax.swing.table.TableRowSorter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,8 +58,8 @@ public class EmployeeMapperShould {
         output = mapper.mapEmployeeToEmployeeResponse(input);
         output2 =mapper.mapEmployeeToEmployeeResponse(input2);
 
-        expectedOutput1= new EmployeeResponse(1,234,"Jack Sparrow", "4353637586","2015/03/13 - present", "active","UniSystems","Manager",unit.getName());
-        expectedOutput2= new EmployeeResponse(2,238,"Jacker Spar", "4353637585","2015/03/13 - 2019/02/11", "inactive","UniSystems","Manager",unit.getName());
+        expectedOutput1= new EmployeeResponse(1,234,"Jack Sparrow", "4353637586","13/03/2015-present", "active","UniSystems","Manager",unit.getName());
+        expectedOutput2= new EmployeeResponse(2,238,"Jacker Spar", "4353637585","13/03/2015-11/02/2019", "inactive","UniSystems","Manager",unit.getName());
 
         expectedOutputList.add(expectedOutput1);
         expectedOutputList.add(expectedOutput2);
@@ -91,17 +92,20 @@ public class EmployeeMapperShould {
 
     @Test
     public void calculateWorkingPeriodWhenActive(){
-        String hireDate=input.getHireDate().toString().replace("-","/")+" - "+"present";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+
+        String hireDate=formatter.format(input.getHireDate()) +"-present";
 
         Assert.assertEquals(hireDate,output.getWorkingPeriod());
     }
 
     @Test
     public void calculateWorkingPeriodWhenNotActive(){
-        String hireDate=input2.getHireDate().toString().replace("-","/");
-        String leaveDate=input2.getLeaveDate().toString().replace("-","/");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        String hireDate=formatter.format(input2.getHireDate());
+        String leaveDate=formatter.format(input2.getLeaveDate());
 
-        Assert.assertEquals(hireDate+" - "+leaveDate,output2.getWorkingPeriod());
+        Assert.assertEquals(hireDate+"-"+leaveDate,output2.getWorkingPeriod());
     }
 
     @Test
