@@ -20,16 +20,16 @@ public class EmployeeController {
 
     @GetMapping("/allEmployees")
     public ResponseEntity getAllEmployees(){
-        GenericResponse<List<EmployeeResponse>> response =new GenericResponse(service.getAllEmployees());
+        GenericResponse response =service.getAllEmployees();
         if (response.getError()!=null){
-            return new ResponseEntity(
+            return new ResponseEntity<>(
                     response.getError(),
                     null,
-                    HttpStatus.NO_CONTENT
+                    HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
 
-        return new ResponseEntity(
+        return new ResponseEntity<>(
                 response.getData(),
                 null,
                 HttpStatus.OK
