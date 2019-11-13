@@ -24,9 +24,9 @@ public class UnitController {
         GenericResponse<List<UnitResponse>> response = service.getAllUnits();
 
         if (response.getError()!=null){
-            return new ResponseEntity(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new ResponseEntity(response.getData(),null,HttpStatus.OK);
+        return new ResponseEntity<>(response.getData(),null,HttpStatus.OK);
     }
 }
