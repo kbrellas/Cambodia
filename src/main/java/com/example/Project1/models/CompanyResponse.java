@@ -1,7 +1,7 @@
 package com.example.Project1.models;
 
 public class CompanyResponse {
-    private Long id;
+    private long id;
     private String name;
 
     public CompanyResponse(Long id, String name) {
@@ -9,11 +9,11 @@ public class CompanyResponse {
         this.name = name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
