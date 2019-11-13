@@ -41,51 +41,6 @@ public class EmployeeController {
         return new GetAllEmployeeResponses(service.getEmployeeBySearchCriteria(searchCriteria,searchId));
     }
 
-    /*
-    @Autowired
-    UnitRepository unitRepository;
-    @Autowired
-    EmployeeRepository employeeRepository;
 
-    @PostMapping("/createEmployee/{UnitId}")
-    public ResponseEntity CreateEmployee(@PathVariable(value = "UnitId") Long UnitId, @RequestBody Employee employee) {
-        Optional<Unit> unt = unitRepository.findById(UnitId);
-        Unit actualUnit = unt.get();
-        if (employee.getLeaveDate() != null) {
-            if (employee.getHireDate().isAfter(employee.getLeaveDate())) {
-                System.out.println("wrong input");
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
-            }
-        }
-        employee.setUnit(actualUnit);
-        employeeRepository.save(employee);
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-    @PatchMapping("/updateEmployeeUnit/{UnitId}/{EmployeeId}")
-    public Employee UpdateEmployeeUnit(@PathVariable(value = "UnitId") Long UnitId, @PathVariable(value = "EmployeeId") Long EmployeeId) {
-        Optional<Unit> unt = unitRepository.findById(UnitId);
-        Unit actualUnit = unt.get();
-        Optional<Employee> emp = employeeRepository.findById(EmployeeId);
-        Employee actualEmp = emp.get();
-        actualEmp.setUnit(actualUnit);
-        employeeRepository.save(actualEmp);
-        return actualEmp;
-    }
-
-    @PutMapping("/updateEmployee/{UnitId}/{EmployeeId}")
-    public Employee UpdateEmployee(@PathVariable(value = "UnitId") Long UnitId, @PathVariable(value = "EmployeeId") Long EmployeeId, @Valid @RequestBody Employee employee) {
-        Optional<Unit> unt = unitRepository.findById(UnitId);
-        Unit actualUnit = unt.get();
-        Optional<Employee> emp = employeeRepository.findById(EmployeeId);
-        Employee actualEmp = emp.get();
-        BeanUtils.copyProperties(employee, actualEmp, "unit", "id");
-        actualEmp.setUnit(actualUnit);
-
-        employeeRepository.save(actualEmp);
-        return actualEmp;
-    }
-    */
 
 }
