@@ -28,10 +28,12 @@ public class BusinessUnitService {
             List<BusinessUnitResponse> retrievedBusinessUnits = new ArrayList<>();
             for (BusinessUnit businessUnit : businessUnits){
                 retrievedBusinessUnits.add(mapper.mapBusinessUnitToBusinessUnitResponse(businessUnit));
+
+            }
+            if(retrievedBusinessUnits.isEmpty()){
+                return new GenericResponse<>(new Error(0,"Empty Repository","There are no Units stored"));
             }
             return new GenericResponse<>(retrievedBusinessUnits);
-
-
         }catch (Exception e){
             e.printStackTrace();
 
@@ -40,18 +42,4 @@ public class BusinessUnitService {
         }
 
     }
-/*
-    public List<BusinessUnitResponse> getAllBusinessUnits(){
-        Iterable<BusinessUnit> retrievedBusinessUnit= repository.findAll();
-        List<BusinessUnitResponse> businessUnits= new ArrayList<>();
-        for (BusinessUnit businessUnit: retrievedBusinessUnit
-             ) {
-            businessUnits.add(mapper.mapBusinessUnitToBusinessUnitResponse(businessUnit));
-        }
-        return businessUnits;
-
-    }
-*/
-
-
 }
