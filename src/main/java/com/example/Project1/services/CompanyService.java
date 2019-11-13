@@ -22,17 +22,24 @@ public class CompanyService {
     private CompanyRepository repository;
 
     public GenericResponse getAllCompanies(){
-        Iterable<Company> retrievedCompanies= repository.findAll();
-        List<CompanyResponse> companies= new ArrayList<>();
-        for (Company company : retrievedCompanies
-                ) {
-            companies.add(mapper.mapCompanyToCompanyResponse(company));
-        }
-        if (companies.isEmpty()){
-            return new GenericResponse<>(new Error(0,"Error","Nothing found"));
+        try {
+            Iterable<Company> retrievedCompanies = repository.findAll();
+            List<CompanyResponse> companies = new ArrayList<>();
+            for (Company company : retrievedCompanies
+            ) {
+                companies.add(mapper.mapCompanyToCompanyResponse(company));
+            }
+            if (companies.isEmpty()) {
+                return new GenericResponse<>(new Error(0, "Error", "Nothing found"));
+
+            }
+            return new GenericResponse<>(companies);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new GenericResponse<>(new Error(0,"Internal Server Error", "Unable to retrieve data"));
         }
 
-        return new GenericResponse<>(companies);
+
     }
 
 
