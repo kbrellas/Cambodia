@@ -50,10 +50,10 @@ public class EmployeeMapper {
 
     private String mapWorkingPeriod(LocalDate hireDate, LocalDate leaveDate){
         if(leaveDate==null){
-            return hireDate.toString().replace("-","/")+"- present";
+            return hireDate.toString().replace("-","/")+" - present";
         }
         else{
-            return hireDate.toString().replace("-","/")+"-"+leaveDate.toString().replace("-","/");
+            return hireDate.toString().replace("-","/")+" - "+leaveDate.toString().replace("-","/");
         }
 
     }

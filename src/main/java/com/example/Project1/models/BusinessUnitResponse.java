@@ -1,21 +1,21 @@
 package com.example.Project1.models;
 
 public class BusinessUnitResponse {
-    private Long id;
+    private long id;
     private String name;
     private String companyName;
 
-    public BusinessUnitResponse(Long id, String name, String companyName) {
+    public BusinessUnitResponse(long id, String name, String companyName) {
         this.id = id;
         this.name = name;
         this.companyName = companyName;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
