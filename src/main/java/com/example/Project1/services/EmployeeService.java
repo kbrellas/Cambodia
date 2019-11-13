@@ -26,25 +26,32 @@ public class EmployeeService {
     @Autowired
     private SearchEmployeeStrategyFactory factory;
 
-    public GenericResponse<List<EmployeeResponse>> getAllEmployees(){
-        Iterable<Employee> retrievedEmployees= repository.findAll();
-        List<EmployeeResponse> employees= new ArrayList<>();
-        for (Employee employee: retrievedEmployees
-             ) {
-            employees.add(mapper.mapEmployeeToEmployeeResponse(employee));
+    public GenericResponse<List<EmployeeResponse>> getAllEmployees() {
+        try {
+            Iterable<Employee> retrievedEmployees = repository.findAll();
+            List<EmployeeResponse> employees = new ArrayList<>();
+            for (Employee employee : retrievedEmployees
+            ) {
+                employees.add(mapper.mapEmployeeToEmployeeResponse(employee));
+            }
+            if (employees.isEmpty()) {
+                return new GenericResponse<>(new Error(0, "Empty Repository", "Please add Employees"));
+            }
+            return new GenericResponse<>(employees);
         }
-        if(employees.isEmpty()){
-            return new GenericResponse<>(new Error(0, "Empty Repository","Please add Employees"));
+        catch(Exception e){
+            e.printStackTrace();
+            return new GenericResponse<>(new Error(0,"Internal Server Error", "Unable to retrieve data"));
         }
-        return new GenericResponse<>(employees);
+
     }
 
 
     public List<EmployeeResponse> getEmployeeBySearchCriteria(String searchCriteria, Long searchId) {
-        Iterable<Employee> retrievedEmployees= repository.findAll();
-        List<EmployeeResponse> employees= new ArrayList<>();
-        SearchEmployeeStrategy strategy= factory.makeStrategyForCriteria(searchCriteria);
-        employees=mapper.mapAllEmployees(strategy.execute(searchId, retrievedEmployees));
+        Iterable<Employee> retrievedEmployees = repository.findAll();
+        List<EmployeeResponse> employees = new ArrayList<>();
+        SearchEmployeeStrategy strategy = factory.makeStrategyForCriteria(searchCriteria);
+        employees = mapper.mapAllEmployees(strategy.execute(searchId, retrievedEmployees));
 
         return employees;
     }
