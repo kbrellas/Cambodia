@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,7 +18,7 @@ public class EmployeeController {
 
     @GetMapping("/allEmployees")
     public ResponseEntity getAllEmployees(){
-        GenericResponse response =service.getAllEmployees();
+        GenericResponse<List<EmployeeResponse>> response =service.getAllEmployees();
         if (response.getError()!=null){
             return new ResponseEntity<>(
                     response.getError(),
@@ -37,8 +35,20 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployeeBySearchCriteria/{searchCriteria}/{searchId}")
-    public GetAllEmployeeResponses getEmployeeBySearchCriteria(@PathVariable String searchCriteria, @PathVariable Long searchId ){
-        return new GetAllEmployeeResponses(service.getEmployeeBySearchCriteria(searchCriteria,searchId));
+    public ResponseEntity getEmployeeBySearchCriteria(@PathVariable String searchCriteria, @PathVariable Long searchId ){
+        GenericResponse<List<EmployeeResponse>> response= service.getEmployeeBySearchCriteria(searchCriteria,searchId);
+        if(response.getError()!=null){
+            return new ResponseEntity<>(
+                    response.getError(),
+                    null,
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return new ResponseEntity<>(response.getData(),
+                null,
+                HttpStatus.OK
+        );
     }
 
 

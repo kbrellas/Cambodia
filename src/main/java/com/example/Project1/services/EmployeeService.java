@@ -47,12 +47,14 @@ public class EmployeeService {
     }
 
 
-    public List<EmployeeResponse> getEmployeeBySearchCriteria(String searchCriteria, Long searchId) {
+    public GenericResponse<List<EmployeeResponse>> getEmployeeBySearchCriteria(String searchCriteria, Long searchId) {
         Iterable<Employee> retrievedEmployees = repository.findAll();
-        List<EmployeeResponse> employees = new ArrayList<>();
         SearchEmployeeStrategy strategy = factory.makeStrategyForCriteria(searchCriteria);
-        employees = mapper.mapAllEmployees(strategy.execute(searchId, retrievedEmployees));
-
-        return employees;
+        GenericResponse<List<Employee>> response  = strategy.execute(searchId, retrievedEmployees);
+        if(response.getError()!=null){
+            return new GenericResponse<>(response.getError());
+        }
+        List<EmployeeResponse> employees= mapper.mapAllEmployees(response.getData());
+        return new GenericResponse<>(employees);
     }
 }

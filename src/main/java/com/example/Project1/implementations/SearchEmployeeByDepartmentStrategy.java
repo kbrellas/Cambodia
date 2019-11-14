@@ -1,13 +1,14 @@
 package com.example.Project1.implementations;
 
 import com.example.Project1.models.Employee;
+import com.example.Project1.models.GenericResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchEmployeeByDepartmentStrategy implements SearchEmployeeStrategy {
     @Override
-    public List<Employee> execute(Long criteriaId, Iterable<Employee> allEmployees) {
+    public GenericResponse<List<Employee>> execute(Long criteriaId, Iterable<Employee> allEmployees) {
         List<Employee> employees =new ArrayList<>();
         for (Employee employee: allEmployees
              ) {
@@ -15,6 +16,6 @@ public class SearchEmployeeByDepartmentStrategy implements SearchEmployeeStrateg
                 employees.add(employee);
             }
         }
-        return employees;
+        return new GenericResponse<>(employees);
     }
 }
