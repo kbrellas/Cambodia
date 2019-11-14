@@ -16,7 +16,14 @@ public class CompanyController {
     @GetMapping("/allCompanies")
     public ResponseEntity getAllCompanies() {
         if (service.getAllCompanies().getError()!= null) {
-            return new ResponseEntity<>(service.getAllCompanies().getError(), null, HttpStatus.OK); }
-        return new ResponseEntity<>(service.getAllCompanies().getData(), null, HttpStatus.OK);
+            return new ResponseEntity<>(
+                    service.getAllCompanies().getError(),
+                    null,
+                    HttpStatus.OK);
+        }
+        return new ResponseEntity<>(
+                service.getAllCompanies().getData(),
+                null,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
