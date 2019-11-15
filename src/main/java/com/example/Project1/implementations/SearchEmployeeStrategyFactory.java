@@ -17,7 +17,7 @@ public class SearchEmployeeStrategyFactory {
             case "company":
                 return new SearchEmployeeByCompanyStrategy();
             default:
-                return null;
+                return new SearchEmployeeWrongInput();
         }
     }
 }
