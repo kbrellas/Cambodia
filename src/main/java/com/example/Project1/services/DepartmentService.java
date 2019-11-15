@@ -41,21 +41,5 @@ public class DepartmentService {
             return new GenericResponse<>(new Error(0,"Internal Server Error", "Unable to retrieve data"));
         }
     }
-
-    public GenericResponse<List<DepartmentResponse>> getDepartmentsByCriteria(String criteria, Long criteriaId) {
-        Iterable<Department> departments = repository.findAll();
-        List<DepartmentResponse> departmentsToReturn = new ArrayList<>();
-        if (criteria.equals("businessUnit")) {
-            if (!businessUnitRepository.findById(criteriaId).isPresent()) {
-                return new GenericResponse<>(new Error(0, "Wrong Input", "BusinessUnit with id " + criteriaId + " does not exist"));
-            }
-            for (Department department : departments) {
-                if (department.getBusinessUnit().getId() == criteriaId) {
-                    departmentsToReturn.add(mapper.mapDepartmentToDepartmentResponse(department));
-                }
-            }
-        }
-        return new GenericResponse<>(departmentsToReturn);
-    }
 }
 

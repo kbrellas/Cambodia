@@ -34,27 +34,4 @@ public class DepartmentController {
                     null,
                     HttpStatus.OK);
     }
-
-    @GetMapping("/getDepartmentsByCriteria/{criteria}/{criteriaId}")
-    public ResponseEntity getDepartmentsByCriteria(@PathVariable String criteria,
-                                             @PathVariable Long criteriaId) {
-        if(!criteria.equals("businessUnit"))
-            return new ResponseEntity(
-                    new Error(0, "Wrong Criteria", "The criteria input should be businessUnit"),
-                    null,
-                    HttpStatus.BAD_REQUEST
-            );
-        GenericResponse<List<DepartmentResponse>> response = service.getDepartmentsByCriteria(criteria, criteriaId);
-        if(response.getError() != null)
-            return new ResponseEntity(
-                    response.getError(),
-                    null,
-                    HttpStatus.BAD_REQUEST
-            );
-
-        return new ResponseEntity(
-                new GetAllDepartmentResponses(response.getData()),
-                null,
-                HttpStatus.OK);
-    }
 }

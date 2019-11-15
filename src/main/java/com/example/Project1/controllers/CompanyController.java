@@ -19,11 +19,11 @@ public class CompanyController {
             return new ResponseEntity<>(
                     service.getAllCompanies().getError(),
                     null,
-                    HttpStatus.OK);
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(
                 service.getAllCompanies().getData(),
                 null,
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                HttpStatus.OK);
     }
 }
