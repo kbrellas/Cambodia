@@ -25,6 +25,11 @@ public class DepartmentMapperShould {
     }
 
     @Test
+    public void keepSameId() {
+        Assert.assertEquals(input.getId(), output.getId());
+    }
+
+    @Test
     public void keepSameName() {
         Assert.assertEquals(input.getName(), output.getName());
     }
