@@ -1,6 +1,7 @@
 package com.example.Project1.controllers;
 
 import com.example.Project1.models.EmployeeResponse;
+import com.example.Project1.models.Error;
 import com.example.Project1.models.GenericResponse;
 import com.example.Project1.models.GetAllEmployeeResponses;
 import com.example.Project1.services.EmployeeService;
@@ -35,7 +36,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployeeBySearchCriteria/{searchCriteria}/{searchId}")
-    public ResponseEntity getEmployeeBySearchCriteria(@PathVariable String searchCriteria, @PathVariable Long searchId ){
+    public ResponseEntity getEmployeeBySearchCriteria(@PathVariable String searchCriteria, @PathVariable Long searchId )throws NumberFormatException{
         GenericResponse<List<EmployeeResponse>> response= service.getEmployeeBySearchCriteria(searchCriteria,searchId);
         if(response.getError()!=null){
             return new ResponseEntity<>(
@@ -49,6 +50,13 @@ public class EmployeeController {
                 null,
                 HttpStatus.OK
         );
+    }
+
+    @ExceptionHandler({NumberFormatException.class})
+    public ResponseEntity handleException(){
+        return new ResponseEntity(new Error(0,"Wrong second input type", "Please enter long"),
+                null,
+                HttpStatus.BAD_REQUEST);
     }
 
 
