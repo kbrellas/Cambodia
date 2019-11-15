@@ -1,6 +1,7 @@
 package com.example.Project1.implementations;
 
 import com.example.Project1.models.Employee;
+import com.example.Project1.models.Error;
 import com.example.Project1.models.GenericResponse;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class SearchEmployeeByCompanyStrategy implements SearchEmployeeStrategy {
                 employees.add(employee);
             }
         }
+        if(employees.isEmpty())
+            return new GenericResponse<>(new Error(0,"No Employees Found","No Employees found for Company"));
         return new GenericResponse<>(employees);
     }
 }
