@@ -137,11 +137,11 @@ public class Project1Application implements CommandLineRunner {
 		unitRepository.save(un15);
 		unitRepository.save(un16);
 
-		Employee emp1= new Employee( 12345,"Brown", "James", "Main St. 134", "6965455545" , LocalDate.of(2018,5,2),LocalDate.of(2019,2,23),false ,"UniSystems",un3,"Department Manager");
-		Employee emp2= new Employee(53532,"Jameson", "Rick", "Second St. 75", "6953532311" , LocalDate.of(2015,2,13),null,true ,"UniSystems",un7,"HR Manager");
-		Employee emp3= new Employee(15463,"Stuart", "Martha", "Palomino St. 23", "6974243585" , LocalDate.of(2016,7,12),null,true ,"UniSystems",un9,"Mid Software Engineer");
-		Employee emp4= new Employee(22341,"Dickinson", "Joy", "White St. 543", "6972234576" , LocalDate.of(2017,4,21),LocalDate.of(2019,2,1),false ,"UniSystems",un14,"Junior Software Engineer");
-		Employee emp5= new Employee(14142,"Rayleigh", "Roger", "Blue Lagoon St. 127", "6972236587" , LocalDate.of(2013,6,15),null,true ,"UniSystems",un10,"Junior Software Developer");
+		Employee emp1= new Employee( 12345,"Brown", "James", "Main St. 134", "6965455545" , LocalDate.of(2018,5,2),LocalDate.of(2019,2,23),Status.INACTIVE ,ContractType.UNISYSTEMS,un3,"Department Manager");
+		Employee emp2= new Employee(53532,"Jameson", "Rick", "Second St. 75", "6953532311" , LocalDate.of(2015,2,13),null,Status.ACTIVE ,ContractType.EXTERNAL,un7,"HR Manager");
+		Employee emp3= new Employee(15463,"Stuart", "Martha", "Palomino St. 23", "6974243585" , LocalDate.of(2016,7,12),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un9,"Mid Software Engineer");
+		Employee emp4= new Employee(22341,"Dickinson", "Joy", "White St. 543", "6972234576" , LocalDate.of(2017,4,21),LocalDate.of(2019,2,1),Status.INACTIVE ,ContractType.EXTERNAL,un14,"Junior Software Engineer");
+		Employee emp5= new Employee(14142,"Rayleigh", "Roger", "Blue Lagoon St. 127", "6972236587" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un10,"Junior Software Developer");
 		employeeRepository.save(emp1);
 		employeeRepository.save(emp2);
 		employeeRepository.save(emp3);

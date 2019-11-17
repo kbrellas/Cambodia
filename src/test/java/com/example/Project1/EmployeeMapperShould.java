@@ -48,9 +48,9 @@ public class EmployeeMapperShould {
         unit=new Unit("Unit 1");
         unit.setId(1);
         unit.setDepartment(department);
-        input=new Employee(234,"Sparrow","Jack", "Main Av. 2","4353637586", LocalDate.of(2015,3,13),null,true,"UniSystems",unit,"Manager");
+        input=new Employee(234,"Sparrow","Jack", "Main Av. 2","4353637586", LocalDate.of(2015,3,13),null,Status.ACTIVE,ContractType.UNISYSTEMS,unit,"Manager");
         input.setId(1);
-        input2=new Employee(238,"Spar","Jacker", "Main Av. 1","4353637585", LocalDate.of(2015,3,13),LocalDate.of(2019,2,11),false,"UniSystems",unit,"Manager");
+        input2=new Employee(238,"Spar","Jacker", "Main Av. 1","4353637585", LocalDate.of(2015,3,13),LocalDate.of(2019,2,11),Status.INACTIVE,ContractType.EXTERNAL,unit,"Manager");
         input2.setId(2);
         inputList.add(input);
         inputList.add(input2);
@@ -58,8 +58,8 @@ public class EmployeeMapperShould {
         output = mapper.mapEmployeeToEmployeeResponse(input);
         output2 =mapper.mapEmployeeToEmployeeResponse(input2);
 
-        expectedOutput1= new EmployeeResponse(1,234,"Jack Sparrow", "4353637586","13/03/2015-present", "active","UniSystems","Manager",unit.getName());
-        expectedOutput2= new EmployeeResponse(2,238,"Jacker Spar", "4353637585","13/03/2015-11/02/2019", "inactive","UniSystems","Manager",unit.getName());
+        expectedOutput1= new EmployeeResponse(1,234,"Jack Sparrow", "4353637586","13/03/2015-present", "active","unisystems","Manager",unit.getName());
+        expectedOutput2= new EmployeeResponse(2,238,"Jacker Spar", "4353637585","13/03/2015-11/02/2019", "inactive","external","Manager",unit.getName());
 
         expectedOutputList.add(expectedOutput1);
         expectedOutputList.add(expectedOutput2);
@@ -120,7 +120,7 @@ public class EmployeeMapperShould {
 
     @Test
     public void keepSameContractType(){
-        Assert.assertEquals(input.getContractType(),output.getContractType());
+        Assert.assertEquals(input.getContractType().toString().toLowerCase(),output.getContractType());
     }
 
     @Test

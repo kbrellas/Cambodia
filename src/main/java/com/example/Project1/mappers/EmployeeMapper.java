@@ -4,7 +4,6 @@ import com.example.Project1.models.EmployeeResponse;
 import com.example.Project1.models.Employee;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +29,18 @@ public class EmployeeMapper {
                 employee.getTelephoneNo(),
                 mapWorkingPeriod(employee),
                 mapStatus(employee),
-                employee.getContractType(),
+                mapContractType(employee),
                 employee.getPosition(),
                 employee.getUnitName()
         );
     }
 
+    private String mapContractType(Employee employee) {
+        return employee.getContractType().toString().toLowerCase();
+    }
+
     private String mapStatus(Employee employee) {
-        if(employee.isActive()){
-            return "active";
-        }
-        else{
-            return "inactive";
-        }
+        return employee.getStatus().toString().toLowerCase();
     }
 
     private String mapFullName(Employee employee) {

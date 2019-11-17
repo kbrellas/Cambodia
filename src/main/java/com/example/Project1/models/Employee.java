@@ -1,6 +1,7 @@
 package com.example.Project1.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 
@@ -14,13 +15,13 @@ public class Employee {
     private String firstName;
     private String homeAddress;
     private String telephoneNo;
-
+    @NotNull
     private LocalDate hireDate;
 
     private LocalDate leaveDate;
-    private boolean active;
+    private Status status;
 
-    private String contractType;
+    private ContractType contractType;
     @ManyToOne
     private Company company;
     @ManyToOne
@@ -36,7 +37,7 @@ public class Employee {
     }
 
 
-    public Employee(int recordNumber, String lastName, String firstName, String homeAddress, String telephoneNo, LocalDate hireDate, LocalDate leaveDate, boolean active, String contractType, Unit unit, String position) {
+    public Employee(int recordNumber, String lastName, String firstName, String homeAddress, String telephoneNo, LocalDate hireDate, LocalDate leaveDate, Status status, ContractType contractType, Unit unit, String position) {
         this.recordNumber=recordNumber;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -44,7 +45,7 @@ public class Employee {
         this.telephoneNo = telephoneNo;
         this.hireDate = hireDate;
         this.leaveDate = leaveDate;
-        this.active = active;
+        this.status = status;
         this.contractType = contractType;
         this.unit = unit;
         this.position = position;
@@ -121,19 +122,19 @@ public class Employee {
         this.leaveDate = leaveDate;
     }
 
-    public boolean isActive() {
-        return active;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public String getContractType() {
+    public ContractType getContractType() {
         return contractType;
     }
 
-    public void setContractType(String contractType) {
+    public void setContractType(ContractType contractType) {
         this.contractType = contractType;
     }
 
