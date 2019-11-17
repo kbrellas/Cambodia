@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class BusinessUnitService {
@@ -41,5 +43,17 @@ public class BusinessUnitService {
             return new GenericResponse<>(error);
         }
 
+    }
+
+    public GenericResponse<BusinessUnitResponse> getBusinessUnitById(long id){
+        try {
+            Optional<BusinessUnit> fetchedBusinessUnit = repository.findById(id);
+            BusinessUnit businessUnit= fetchedBusinessUnit.get();
+            return new GenericResponse<>(mapper.mapBusinessUnitToBusinessUnitResponse(businessUnit));
+        }
+        catch (NoSuchElementException e){
+            e.printStackTrace();
+            return new GenericResponse<>(new Error(0,"Wrong id for Business Unit","Id : "+id+" does not exist" ));
+        }
     }
 }

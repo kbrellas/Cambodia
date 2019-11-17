@@ -12,6 +12,8 @@ import com.example.Project1.models.Error;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class DepartmentService {
@@ -39,6 +41,18 @@ public class DepartmentService {
         } catch(Exception e){
             e.printStackTrace();
             return new GenericResponse<>(new Error(0,"Internal Server Error", "Unable to retrieve data"));
+        }
+    }
+
+    public GenericResponse<DepartmentResponse> getDepartmentById(long id){
+        try {
+            Optional<Department> fetchedDepartment = repository.findById(id);
+            Department department= fetchedDepartment.get();
+            return new GenericResponse<>(mapper.mapDepartmentToDepartmentResponse(department));
+        }
+        catch (NoSuchElementException e){
+            e.printStackTrace();
+            return new GenericResponse<>(new Error(0,"Wrong id for Department","Id : "+id+" does not exist" ));
         }
     }
 }

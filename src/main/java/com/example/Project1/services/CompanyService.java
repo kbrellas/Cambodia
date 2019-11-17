@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class CompanyService {
@@ -40,6 +42,18 @@ public class CompanyService {
         }
 
 
+    }
+
+    public GenericResponse<CompanyResponse> getCompanyById(long id){
+        try {
+            Optional<Company> fetchedCompany = repository.findById(id);
+            Company company= fetchedCompany.get();
+            return new GenericResponse<>(mapper.mapCompanyToCompanyResponse(company));
+        }
+        catch (NoSuchElementException e){
+            e.printStackTrace();
+            return new GenericResponse<>(new Error(0,"Wrong id for Company","Id : "+id+" does not exist" ));
+        }
     }
 
 

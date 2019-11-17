@@ -7,10 +7,14 @@ import com.example.Project1.repositories.UnitRepository;
 import com.example.Project1.models.Unit;
 import com.example.Project1.models.UnitResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UnitService {
@@ -35,6 +39,18 @@ public class UnitService {
         }catch(Exception e){
             e.printStackTrace();
             return new GenericResponse<>(new Error(0,"Internal Server Error", "Unable to retrieve data"));
+        }
+    }
+
+    public GenericResponse<UnitResponse> getUnitById(long id){
+        try {
+            Optional<Unit> fetchedUnit = repository.findById(id);
+            Unit unit= fetchedUnit.get();
+            return new GenericResponse<>(mapper.mapUnitToUnitResponse(unit));
+        }
+        catch (NoSuchElementException e){
+            e.printStackTrace();
+            return new GenericResponse<>(new Error(0,"Wrong id for Unit","Id : "+id+" does not exist" ));
         }
     }
 
