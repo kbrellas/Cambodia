@@ -1,9 +1,7 @@
 package com.example.Project1.implementations;
 
-import com.example.Project1.models.BusinessUnitResponse;
-import com.example.Project1.models.Employee;
+import com.example.Project1.models.*;
 import com.example.Project1.models.Error;
-import com.example.Project1.models.GenericResponse;
 import com.example.Project1.services.BusinessUnitService;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class SearchEmployeeByBusinessUnitStrategy implements SearchEmployeeStrat
     @Override
     public GenericResponse<List<Employee>> execute(Long criteriaId, Iterable<Employee> allEmployees) {
 
-        GenericResponse<BusinessUnitResponse> idResponse = service.getBusinessUnitById(criteriaId);
+        GenericResponse<BusinessUnit> idResponse = service.getBusinessUnitById(criteriaId);
         if (idResponse.getError()!= null){
             return new GenericResponse<>(idResponse.getError());
         }

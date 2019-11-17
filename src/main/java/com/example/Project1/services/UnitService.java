@@ -42,11 +42,11 @@ public class UnitService {
         }
     }
 
-    public GenericResponse<UnitResponse> getUnitById(long id){
+    public GenericResponse<Unit> getUnitById(long id){
         try {
             Optional<Unit> fetchedUnit = repository.findById(id);
             Unit unit= fetchedUnit.get();
-            return new GenericResponse<>(mapper.mapUnitToUnitResponse(unit));
+            return new GenericResponse<>(unit);
         }
         catch (NoSuchElementException e){
             e.printStackTrace();

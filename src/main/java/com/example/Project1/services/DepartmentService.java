@@ -44,11 +44,11 @@ public class DepartmentService {
         }
     }
 
-    public GenericResponse<DepartmentResponse> getDepartmentById(long id){
+    public GenericResponse<Department> getDepartmentById(long id){
         try {
             Optional<Department> fetchedDepartment = repository.findById(id);
             Department department= fetchedDepartment.get();
-            return new GenericResponse<>(mapper.mapDepartmentToDepartmentResponse(department));
+            return new GenericResponse<>(department);
         }
         catch (NoSuchElementException e){
             e.printStackTrace();

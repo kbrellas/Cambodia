@@ -1,13 +1,13 @@
 package com.example.Project1.controllers;
 
-import com.example.Project1.models.EmployeeResponse;
+import com.example.Project1.models.*;
 import com.example.Project1.models.Error;
-import com.example.Project1.models.GenericResponse;
-import com.example.Project1.models.GetAllEmployeeResponses;
 import com.example.Project1.services.EmployeeService;
+import com.example.Project1.services.EmployeeToUnitAssociator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,6 +16,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService service;
+
+    @Autowired
+    private EmployeeToUnitAssociator associator;
 
     @GetMapping("/allEmployees")
     public ResponseEntity getAllEmployees(){
@@ -52,11 +55,25 @@ public class EmployeeController {
         );
     }
 
+    @PostMapping("/createNewEmployee/{unitId}")
+    public ResponseEntity createNewEmployee(@RequestBody Employee employee, @PathVariable long unitId){
+        GenericResponse<Employee> response =associator.createNewEmployee(employee,unitId);
+        if(response.getError()!=null){
+            return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(response.getData(),null,HttpStatus.CREATED);
+    }
+
     @ExceptionHandler({NumberFormatException.class})
-    public ResponseEntity handleException(){
-        return new ResponseEntity(new Error(0,"Wrong second input type", "Please enter long"),
+    public ResponseEntity handleNumberFormatException(){
+        return new ResponseEntity<>(new Error(0,"Wrong input type", "Id must be type long"),
                 null,
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    public ResponseEntity handleHttpMessageNotReadableException(){
+        return new ResponseEntity<>(new Error(0,"Wrong input type(s) given","Please try again"),null,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

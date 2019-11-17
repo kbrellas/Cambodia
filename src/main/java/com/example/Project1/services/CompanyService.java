@@ -44,11 +44,11 @@ public class CompanyService {
 
     }
 
-    public GenericResponse<CompanyResponse> getCompanyById(long id){
+    public GenericResponse<Company> getCompanyById(long id){
         try {
             Optional<Company> fetchedCompany = repository.findById(id);
             Company company= fetchedCompany.get();
-            return new GenericResponse<>(mapper.mapCompanyToCompanyResponse(company));
+            return new GenericResponse<>(company);
         }
         catch (NoSuchElementException e){
             e.printStackTrace();

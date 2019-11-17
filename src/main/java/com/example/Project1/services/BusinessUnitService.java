@@ -45,11 +45,11 @@ public class BusinessUnitService {
 
     }
 
-    public GenericResponse<BusinessUnitResponse> getBusinessUnitById(long id){
+    public GenericResponse<BusinessUnit> getBusinessUnitById(long id){
         try {
             Optional<BusinessUnit> fetchedBusinessUnit = repository.findById(id);
             BusinessUnit businessUnit= fetchedBusinessUnit.get();
-            return new GenericResponse<>(mapper.mapBusinessUnitToBusinessUnitResponse(businessUnit));
+            return new GenericResponse<>(businessUnit);
         }
         catch (NoSuchElementException e){
             e.printStackTrace();

@@ -23,7 +23,7 @@ public class SearchEmployeeByUnitStrategy implements SearchEmployeeStrategy {
     @Override
     public GenericResponse<List<Employee>> execute(Long criteriaId, Iterable<Employee> allEmployees) {
 
-        GenericResponse<UnitResponse> idResponse= service.getUnitById(criteriaId);
+        GenericResponse<Unit> idResponse= service.getUnitById(criteriaId);
         if (idResponse.getError()!= null){
             return new GenericResponse<>(idResponse.getError());
         }
