@@ -1,4 +1,4 @@
-package com.example.Project1;
+package com.example.Project1.mappers;
 
 import com.example.Project1.mappers.DepartmentMapper;
 import com.example.Project1.models.BusinessUnit;

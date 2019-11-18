@@ -17,11 +17,14 @@ import java.util.Optional;
 @Service
 public class CompanyService {
 
-    @Autowired
     private CompanyMapper mapper;
 
-    @Autowired
     private CompanyRepository repository;
+
+    public CompanyService(CompanyMapper mapper, CompanyRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
 
     public GenericResponse getAllCompanies(){
         try {

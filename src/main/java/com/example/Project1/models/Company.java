@@ -17,6 +17,11 @@ public class Company {
         this.name = name;
     }
 
+    public Company(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Company() {
     }
 
