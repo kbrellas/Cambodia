@@ -22,6 +22,8 @@ public class Project1Application implements CommandLineRunner {
 	UnitRepository unitRepository;
 	@Autowired
 	EmployeeRepository employeeRepository;
+	@Autowired
+	TaskRepository taskRepository;
 
 
 
@@ -147,5 +149,27 @@ public class Project1Application implements CommandLineRunner {
 		employeeRepository.save(emp3);
 		employeeRepository.save(emp4);
 		employeeRepository.save(emp5);
+
+		Task task1 = new Task("Task1","Το πρώτο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task2 = new Task("Task2","Το δεύτερο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task3 = new Task("Task3","Το τρίτο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task4 = new Task("Task4","Το τέταρτο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task5 = new Task("Task5","Το πέμπτο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task6 = new Task("Task6","Το έκτο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task7 = new Task("Task7","Το έβδομο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task8 = new Task("Task8","Το ογδοο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task9 = new Task("Task9","Το ένωατο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task10 = new Task("Task10","Το δέκατο Task",4,5,1,TaskStatus.NEW,null,null);
+
+		taskRepository.save(task1);
+		taskRepository.save(task2);
+		taskRepository.save(task3);
+		taskRepository.save(task4);
+		taskRepository.save(task7);
+		taskRepository.save(task6);
+		taskRepository.save(task7);
+		taskRepository.save(task8);
+		taskRepository.save(task9);
+		taskRepository.save(task10);
 	}
 }
