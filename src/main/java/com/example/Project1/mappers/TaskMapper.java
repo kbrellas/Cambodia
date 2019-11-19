@@ -25,7 +25,7 @@ import java.util.*;
 public class TaskMapper {
 
     @Autowired
-    EmployeeMapper employeeMapper;
+    private EmployeeMapper employeeMapper;
 
     public List<TaskResponse> mapAllTasks (Iterable<Task> AllTasks){
         List<TaskResponse> allTaskResponses = new ArrayList<>();
