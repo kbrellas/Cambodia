@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 public class CompanyServiceShould {
     private CompanyService service;
+    private Company company;
     @Mock
     private CompanyRepository repository;
     @Mock
@@ -38,8 +39,10 @@ public class CompanyServiceShould {
     public void setup(){
         MockitoAnnotations.initMocks(this);
         when(repository.findAll()).thenReturn(mockedCompanies);
+        when(repository.findById((long)1)).thenReturn(java.util.Optional.of(new Company((long) 1, "Unisystems")));
         when(mapper.mapCompanyToCompanyResponse(ArgumentMatchers.any())).thenReturn(new CompanyResponse((long) 1,"Unisystems"));
         service = new CompanyService(mapper,repository);
+        company=new Company(1,"Unisystems");
     }
 
     @Test
@@ -69,6 +72,12 @@ public class CompanyServiceShould {
         expextedList.add(new CompanyResponse((long) 1,"Unisystems"));
         expextedList.add(new CompanyResponse((long) 2,"InfoQuest"));
         Assert.assertThat(expextedList, Matchers.samePropertyValuesAs(output.getData()));
+    }
+
+    @Test
+    public void returnCompanyById(){
+        Company output = service.getCompanyById((long) 1).getData();
+        Assert.assertThat(company,Matchers.samePropertyValuesAs(output));
     }
 
 }

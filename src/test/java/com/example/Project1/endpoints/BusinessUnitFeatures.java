@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Project1Application.class},webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BusinessUnitFeature {
+public class BusinessUnitFeatures {
     MockMvc mockMvc;
 
     @Autowired
