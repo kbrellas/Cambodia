@@ -2,14 +2,21 @@ package com.example.Project1.controllers;
 
 import com.example.Project1.models.*;
 import com.example.Project1.models.Error;
+import com.example.Project1.repositories.EmployeeRepository;
 import com.example.Project1.services.EmployeeService;
 import com.example.Project1.services.EmployeeToUnitAssociator;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class EmployeeController {
@@ -62,6 +69,18 @@ public class EmployeeController {
             return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(response.getData(),null,HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/updateEmployee/{employeeId}")
+    public ResponseEntity updateEmployee(@PathVariable Long employeeId, @RequestBody Employee partialEmployee) {
+
+            GenericResponse<Employee> response = service.updateEmployee(partialEmployee, employeeId);
+
+            if (response.getError() != null) {
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            return new ResponseEntity<>(response.getData(), null, HttpStatus.OK);
+
     }
 
     @ExceptionHandler({NumberFormatException.class})
