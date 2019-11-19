@@ -3,10 +3,13 @@ package com.example.Project1.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -32,6 +35,9 @@ public class Employee {
     @ManyToOne
     private Unit unit;
     private String position;
+
+    @ManyToMany(mappedBy = "employees")
+    private List<Task> tasks;
 
     public Employee() {
     }
@@ -174,6 +180,8 @@ public class Employee {
         this.setCompany();
     }
 
+
+
     public String getPosition() {
         return position;
     }
@@ -196,5 +204,14 @@ public class Employee {
 
     public String getUnitName() {
         return this.unit.getName();
+    }
+
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }
