@@ -1,9 +1,7 @@
 package com.example.Project1.controllers;
 
-import com.example.Project1.models.EmployeeResponse;
+import com.example.Project1.models.*;
 import com.example.Project1.models.Error;
-import com.example.Project1.models.GenericResponse;
-import com.example.Project1.models.TaskResponse;
 import com.example.Project1.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +39,7 @@ public class TaskController {
     }
     @GetMapping("/findTaskById/{taskId}")
     public ResponseEntity getTaskById(@PathVariable long taskId){
-        GenericResponse<TaskResponse> response = service.getTaskById(taskId);
+        GenericResponse<FullTaskInfoResponse> response = service.getTaskById(taskId);
         if (response.getError()!=null){
             return new ResponseEntity<>(
                     response.getError(),

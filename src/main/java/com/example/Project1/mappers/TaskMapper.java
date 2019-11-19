@@ -1,8 +1,10 @@
 package com.example.Project1.mappers;
 
 import com.example.Project1.models.Difficulty;
+import com.example.Project1.models.FullTaskInfoResponse;
 import com.example.Project1.models.Task;
 import com.example.Project1.models.TaskResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -21,6 +23,9 @@ import java.util.*;
 
 @Component
 public class TaskMapper {
+
+    @Autowired
+    EmployeeMapper employeeMapper;
 
     public List<TaskResponse> mapAllTasks (Iterable<Task> AllTasks){
         List<TaskResponse> allTaskResponses = new ArrayList<>();
@@ -41,6 +46,29 @@ public class TaskMapper {
                 task.getDesc(),
                 getDifficulty(task),
                 task.getTaskStatus()
+        );
+    }
+    /*
+    6)  Δημιουργήστε endpoint όπου θα δέχεται taskId και θα επιστρέφει
+        “όλη” την πληροφόρία του Task(
+                id,
+                title,
+                desc,
+                difficulty,
+                status,
+                assignedEmployees,
+                updates).
+     */
+
+    public FullTaskInfoResponse mapFullTaskInfoResponse(Task task){
+        return new FullTaskInfoResponse(
+                task.getId(),
+                task.getTitle(),
+                task.getDesc(),
+                getDifficulty(task),
+                task.getTaskStatus(),
+                employeeMapper.mapAllEmployees(task.getEmployees()),
+                task.getUpdates()
         );
     }
 

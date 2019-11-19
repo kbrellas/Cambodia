@@ -35,13 +35,13 @@ public class TaskService {
         }
     }
 
-    public GenericResponse<TaskResponse> getTaskById(long id){
+    public GenericResponse<FullTaskInfoResponse> getTaskById(long id){
         try {
             Optional<Task> fetchedTask = repository.findById(id);
             if(fetchedTask.isEmpty())
                 return new GenericResponse<>(new Error(0,"Invalid Task id", "Unable to detect Task with id: "+String.valueOf(id)));
             Task task = fetchedTask.get();
-            return new GenericResponse<>(mapper.mapTaskToTaskResponse(task));
+            return new GenericResponse<>(mapper.mapFullTaskInfoResponse(task));
         }
         catch (NoSuchElementException e){
             e.printStackTrace();

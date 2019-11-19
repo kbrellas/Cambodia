@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class Project1Application implements CommandLineRunner {
@@ -150,12 +152,31 @@ public class Project1Application implements CommandLineRunner {
 		employeeRepository.save(emp4);
 		employeeRepository.save(emp5);
 
-		Task task1 = new Task("Task1","Το πρώτο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task2 = new Task("Task2","Το δεύτερο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task3 = new Task("Task3","Το τρίτο Task",4,5,1,TaskStatus.NEW,null,null);
+		List<Employee> SomeEmployees = new ArrayList<>();
+		SomeEmployees.add(emp1);
+		SomeEmployees.add(emp2);
+		SomeEmployees.add(emp3);
+		SomeEmployees.add(emp4);
+		SomeEmployees.add(emp5);
+
+		List<String> Updates = new ArrayList<>();
+		Updates.add("update 1");
+		Updates.add("update 2");
+		Updates.add("update 3");
+		Updates.add("update 4");
+		Updates.add("update 5");
+		Updates.add("update 6");
+		Updates.add("update 7");
+		Updates.add("update 8");
+		Updates.add("update 9");
+		Updates.add("update 10");
+
+		Task task1 = new Task("Task1","Το πρώτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees);
+		Task task2 = new Task("Task2","Το δεύτερο Task",4,5,1,TaskStatus.NEW,Updates,null);
+		Task task3 = new Task("Task3","Το τρίτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees);
 		Task task4 = new Task("Task4","Το τέταρτο Task",4,5,1,TaskStatus.NEW,null,null);
 		Task task5 = new Task("Task5","Το πέμπτο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task6 = new Task("Task6","Το έκτο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task6 = new Task("Task6","Το έκτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees);
 		Task task7 = new Task("Task7","Το έβδομο Task",4,5,1,TaskStatus.NEW,null,null);
 		Task task8 = new Task("Task8","Το ογδοο Task",4,5,1,TaskStatus.NEW,null,null);
 		Task task9 = new Task("Task9","Το ένωατο Task",4,5,1,TaskStatus.NEW,null,null);
