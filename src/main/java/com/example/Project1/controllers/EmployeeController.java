@@ -74,12 +74,24 @@ public class EmployeeController {
     @PatchMapping("/updateEmployee/{employeeId}")
     public ResponseEntity updateEmployee(@PathVariable Long employeeId, @RequestBody Employee partialEmployee) {
 
-            GenericResponse<Employee> response = service.updateEmployee(partialEmployee, employeeId);
+            GenericResponse<Employee> response = service.updateEmployee(partialEmployee, employeeId,null);
 
             if (response.getError() != null) {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
             return new ResponseEntity<>(response.getData(), null, HttpStatus.OK);
+
+    }
+
+    @PatchMapping("/updateEmployee/{employeeId}/{unitId}")
+    public ResponseEntity updateEmployee(@PathVariable long employeeId, @PathVariable long unitId, @RequestBody Employee partialEmployee) {
+
+        GenericResponse<Employee> response = associator.updateEmployee(partialEmployee, employeeId,unitId);
+
+        if (response.getError() != null) {
+            return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(response.getData(), null, HttpStatus.OK);
 
     }
 

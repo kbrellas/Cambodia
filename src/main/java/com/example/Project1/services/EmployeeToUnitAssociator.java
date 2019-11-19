@@ -29,4 +29,12 @@ public class EmployeeToUnitAssociator {
     }
 
 
+    public GenericResponse<Employee> updateEmployee(Employee partialEmployee, long employeeId, long unitId) {
+        GenericResponse<Unit> fetchedUnit=unitService.getUnitById(unitId);
+        if(fetchedUnit.getError()!=null){
+            return new GenericResponse<>(fetchedUnit.getError());
+        }
+        GenericResponse<Employee> changedEmployee=employeeService.updateEmployee(partialEmployee,employeeId,fetchedUnit.getData());
+        return changedEmployee;
+    }
 }
