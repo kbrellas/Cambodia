@@ -8,6 +8,7 @@ import com.example.Project1.models.Error;
 import com.example.Project1.repositories.EmployeeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -71,7 +72,7 @@ public class EmployeeService {
         return new GenericResponse<>(employee);
     }
 
-    public GenericResponse<Employee> updateEmployee(Employee partialEmployee, Long id) {
+    public GenericResponse<Employee> updateEmployee(Employee partialEmployee, long id, @Nullable Unit unit) {
         //extract changed fields from patch body
         Map<String, Object> employeeMap = new HashMap<>();
         Field[] allFields = partialEmployee.getClass().getDeclaredFields();
@@ -113,6 +114,9 @@ public class EmployeeService {
             ReflectionUtils.setField(field, retrievedEmployee, v);
             field.setAccessible(false);
         });
+        if(unit!=null){
+            retrievedEmployee.setUnit(unit);
+        }
         repository.save(retrievedEmployee);
         return new GenericResponse<>(retrievedEmployee);
     }
