@@ -36,8 +36,8 @@ public class Employee {
     private Unit unit;
     private String position;
 
-    @ManyToMany(mappedBy = "employees")
-    private List<Task> tasks;
+    /*@ManyToMany(mappedBy = "employees")
+    private List<Task> tasks;*/
 
     public Employee() {
     }
@@ -207,11 +207,11 @@ public class Employee {
     }
 
 
-    public List<Task> getTasks() {
+    /*public List<Task> getTasks() {
         return tasks;
     }
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
-    }
+    }*/
 }
