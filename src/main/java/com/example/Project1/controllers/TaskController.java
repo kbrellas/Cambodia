@@ -59,7 +59,7 @@ public class TaskController {
 
     @PostMapping("/createTask")
     public ResponseEntity createTask(@RequestBody Task task){
-        GenericResponse<Task> response=service.createNewTask(task);
+        GenericResponse<Task> response=interractor.createNewTask(task);
         if(response.getError()!=null){
             return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
         }

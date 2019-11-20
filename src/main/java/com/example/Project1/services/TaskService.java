@@ -5,6 +5,7 @@ import com.example.Project1.models.*;
 import com.example.Project1.models.Error;
 import com.example.Project1.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +58,20 @@ public class TaskService {
         return new GenericResponse<>(task);
     }
 
-    public GenericResponse<Task> createNewTask(Task task) {
+    public GenericResponse<Task> createNewTask(Task task, @Nullable List<Employee> employees) {
+        if(employees==null) {
+            repository.save(task);
+            return new GenericResponse<>(task);
+        }
+        Unit firstUnit=employees.get(0).getUnit();
+        for (Employee employee: employees
+             ) {
+            if(employee.getUnit()!=firstUnit){
+                return new GenericResponse<>(new Error(0,"Wrong employees input for task","Cannot add employees " +
+                        "that belong to different Units to one task"));
+            }
+        }
+        task.setEmployees(employees);
         repository.save(task);
         return new GenericResponse<>(task);
     }

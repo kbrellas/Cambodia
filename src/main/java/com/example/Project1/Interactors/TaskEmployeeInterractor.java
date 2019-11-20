@@ -10,6 +10,7 @@ import com.example.Project1.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -59,4 +60,20 @@ public GenericResponse<FullTaskInfoResponse> getFullTaskById(long id){
 }
 
 
+    public GenericResponse<Task> createNewTask(Task task) {
+        if(task.getEmployees()==null){
+            return taskService.createNewTask(task,null);
+        }
+        List<Employee> inputedEmployees =task.getEmployees();
+        List<Employee> actualEmployees= new ArrayList<>();
+        for (Employee employee: inputedEmployees
+             ) {
+            GenericResponse<Employee> fetchedEmployee= employeeService.getEmployeeById(employee.getId());
+            if(fetchedEmployee.getError()!=null){
+                return new GenericResponse<>(fetchedEmployee.getError());
+            }
+            actualEmployees.add(fetchedEmployee.getData());
+        }
+        return taskService.createNewTask(task,actualEmployees);
+    }
 }

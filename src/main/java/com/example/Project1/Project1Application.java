@@ -146,11 +146,18 @@ public class Project1Application implements CommandLineRunner {
 		Employee emp3= new Employee(15463,"Stuart", "Martha", "Palomino St. 23", "6974243585" , LocalDate.of(2016,7,12),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un9,"Mid Software Engineer");
 		Employee emp4= new Employee(22341,"Dickinson", "Joy", "White St. 543", "6972234576" , LocalDate.of(2017,4,21),LocalDate.of(2019,2,1),Status.INACTIVE ,ContractType.EXTERNAL,un14,"Junior Software Engineer");
 		Employee emp5= new Employee(14142,"Rayleigh", "Roger", "Blue Lagoon St. 127", "6972236587" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un10,"Junior Software Developer");
-		employeeRepository.save(emp1);
+        Employee emp6= new Employee(14144,"Monkey", "Luffy", "Blue Lagoon St. 122", "6972234447" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un3,"Junior Software Developer");
+        Employee emp7= new Employee(12323,"Roronoa", "Zoro", "Blue Lagoon St. 121", "6972235557" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un3,"Senior Software Developer");
+        Employee emp8= new Employee(98742,"HawkEye", "Mihawk", "Blue Lagoon St. 123", "6972666587" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un3,"Master Software Developer");
+
+        employeeRepository.save(emp1);
 		employeeRepository.save(emp2);
 		employeeRepository.save(emp3);
 		employeeRepository.save(emp4);
 		employeeRepository.save(emp5);
+        employeeRepository.save(emp6);
+        employeeRepository.save(emp7);
+        employeeRepository.save(emp8);
 
 		List<Employee> SomeEmployees = new ArrayList<>();
 		SomeEmployees.add(emp1);
