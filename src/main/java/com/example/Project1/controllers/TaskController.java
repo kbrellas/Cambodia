@@ -66,6 +66,14 @@ public class TaskController {
         return new ResponseEntity<>(response.getData(),null,HttpStatus.CREATED);
 
     }
+    @PatchMapping("/updateTask/{taskId}")
+    public ResponseEntity updateTask(@RequestBody Task partialTask, @PathVariable long taskId){
+        GenericResponse<Task> response=interractor.updateTask(partialTask,taskId);
+        if(response.getError()!=null){
+            return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(response.getData(),null,HttpStatus.OK);
+    }
 
     @ExceptionHandler({NumberFormatException.class})
     public ResponseEntity handleNumberFormatException() {

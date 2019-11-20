@@ -82,7 +82,7 @@ public class EmployeeService {
 
                 if(!field.getName().equalsIgnoreCase("id")) {
                     Object value = field.get(partialEmployee);
-                    if (value != null) {
+                    if (value != null&& !value.equals(0)) {
                         employeeMap.put(field.getName(), value);
                     }
                 }

@@ -76,4 +76,25 @@ public GenericResponse<FullTaskInfoResponse> getFullTaskById(long id){
         }
         return taskService.createNewTask(task,actualEmployees);
     }
+
+    public GenericResponse<Task> updateTask(Task partialTask, long taskId) {
+        GenericResponse<Task> fetchedTask= taskService.getTaskById(taskId);
+        if(fetchedTask.getError()!=null){
+            return new GenericResponse<>(fetchedTask.getError());
+        }
+        if(partialTask.getEmployees()==null){
+            return taskService.updateTask(partialTask,taskId,null);
+        }
+        List<Employee> inputedEmployees =partialTask.getEmployees();
+        List<Employee> actualEmployees= new ArrayList<>();
+        for (Employee employee: inputedEmployees
+        ) {
+            GenericResponse<Employee> fetchedEmployee= employeeService.getEmployeeById(employee.getId());
+            if(fetchedEmployee.getError()!=null){
+                return new GenericResponse<>(fetchedEmployee.getError());
+            }
+            actualEmployees.add(fetchedEmployee.getData());
+        }
+        return taskService.updateTask(partialTask,taskId,actualEmployees);
+    }
 }

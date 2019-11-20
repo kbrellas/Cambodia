@@ -7,10 +7,10 @@ import com.example.Project1.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.util.*;
 
 @Service
 public class TaskService {
@@ -74,5 +74,51 @@ public class TaskService {
         task.setEmployees(employees);
         repository.save(task);
         return new GenericResponse<>(task);
+    }
+
+    public GenericResponse<Task> updateTask(Task partialTask, long taskId, @Nullable List<Employee> employees) {
+
+        Map<String, Object> taskMap = new HashMap<>();
+        Field[] allFields = partialTask.getClass().getDeclaredFields();
+        for (Field field : allFields) {
+            field.setAccessible(true);
+            try {
+
+                if(!field.getName().equalsIgnoreCase("id")) {
+                    Object value = field.get(partialTask);
+                    if (value != null&& !value.equals(0)) {
+                        taskMap.put(field.getName(), value);
+                    }
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return new GenericResponse<>(new Error(0, "Cannot Access field", "Field : "+field));
+            }
+            field.setAccessible(false);
+        }
+        Task retrievedTask=repository.findById(taskId).get();
+        taskMap.forEach((k, v) -> {
+            // use reflection to get field k on retrievedEmployee and set it to value k
+            Field field = ReflectionUtils.findField(Task.class, k);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, retrievedTask, v);
+            field.setAccessible(false);
+        });
+        if(employees!=null){
+            Unit firstUnit=employees.get(0).getUnit();
+            for (Employee employee: employees
+                 ) {
+                if(employee.getUnit()!=firstUnit){
+                    return new GenericResponse<>(new Error(0,"Wrong employees input for task","Cannot add employees " +
+                            "that belong to different Units to one task"));
+                }
+
+            }
+            retrievedTask.setEmployees(employees);
+
+        }
+        repository.save(retrievedTask);
+        return new GenericResponse<>(retrievedTask);
+
     }
 }
