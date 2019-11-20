@@ -35,17 +35,25 @@ public class TaskService {
         }
     }
 
-    public GenericResponse<FullTaskInfoResponse> getTaskById(long id){
-        try {
-            Optional<Task> fetchedTask = repository.findById(id);
-            if(fetchedTask.isEmpty())
-                return new GenericResponse<>(new Error(0,"Invalid Task id", "Unable to detect Task with id: "+String.valueOf(id)));
-            Task task = fetchedTask.get();
-            return new GenericResponse<>(mapper.mapFullTaskInfoResponse(task));
+   public GenericResponse<Task> getTaskById(long id){
+        Optional<Task> fetchedTask= repository.findById(id);
+        if(!fetchedTask.isPresent()){
+            return new GenericResponse<>(new Error(0,"Wrong input error","Task with id : "+id+" does not exist."));
         }
-        catch (NoSuchElementException e){
-            e.printStackTrace();
-            return new GenericResponse<>(new Error(0,"Internal Server Error","Unable to retrieve data"));
-        }
+        Task task= fetchedTask.get();
+        return new GenericResponse<>(task);
+
+   }
+
+   public GenericResponse<FullTaskInfoResponse> getFullTaskInfoResponse(Task task,List<EmployeeResponse> employees){
+        return new GenericResponse<>(mapper.mapFullTaskInfoResponse(task,employees));
+   }
+
+    public GenericResponse<Task> assignEmployeeToTask(Employee employee, Task task) {
+        List<Employee> listOfEmployees=task.getEmployees();
+        listOfEmployees.add(employee);
+        task.setEmployees(listOfEmployees);
+        repository.save(task);
+        return new GenericResponse<>(task);
     }
 }

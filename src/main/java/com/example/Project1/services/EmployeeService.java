@@ -120,4 +120,20 @@ public class EmployeeService {
         repository.save(retrievedEmployee);
         return new GenericResponse<>(retrievedEmployee);
     }
+
+    public GenericResponse<List<EmployeeResponse>> getSpecificEmployees(List<Employee> employees){
+        if(employees.isEmpty()){
+            return new GenericResponse<>(new Error(0,"No Employees found","The task has no Employees"));
+        }
+        return new GenericResponse<>(mapper.mapAllEmployees(employees));
+
+    }
+
+    public GenericResponse<Employee> getEmployeeById(long id){
+        Optional<Employee> fetchedEmployee = repository.findById(id);
+        if(!fetchedEmployee.isPresent()){
+            return new GenericResponse<>(new Error(0,"Wrong input error","Employee with id : "+id+" does not exist."));
+        }
+        return new GenericResponse<>(fetchedEmployee.get());
+    }
 }

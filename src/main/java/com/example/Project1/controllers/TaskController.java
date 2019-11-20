@@ -1,5 +1,6 @@
 package com.example.Project1.controllers;
 
+import com.example.Project1.Interactors.TaskEmployeeInterractor;
 import com.example.Project1.models.*;
 import com.example.Project1.models.Error;
 import com.example.Project1.services.TaskService;
@@ -20,6 +21,9 @@ public class TaskController {
     @Autowired
     private TaskService service;
 
+    @Autowired
+    private TaskEmployeeInterractor interractor;
+
     @GetMapping("/allTasks")
     public ResponseEntity getAllTasks(){
         GenericResponse<List<TaskResponse>> response =service.getAllTasks();
@@ -39,7 +43,7 @@ public class TaskController {
     }
     @GetMapping("/findTaskById/{taskId}")
     public ResponseEntity getTaskById(@PathVariable long taskId){
-        GenericResponse<FullTaskInfoResponse> response = service.getTaskById(taskId);
+        GenericResponse<FullTaskInfoResponse> response = interractor.getFullTaskById(taskId);
         if (response.getError()!=null){
             return new ResponseEntity<>(
                     response.getError(),

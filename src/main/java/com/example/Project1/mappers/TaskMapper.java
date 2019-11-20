@@ -1,9 +1,6 @@
 package com.example.Project1.mappers;
 
-import com.example.Project1.models.Difficulty;
-import com.example.Project1.models.FullTaskInfoResponse;
-import com.example.Project1.models.Task;
-import com.example.Project1.models.TaskResponse;
+import com.example.Project1.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +21,6 @@ import java.util.*;
 @Component
 public class TaskMapper {
 
-    @Autowired
-    private EmployeeMapper employeeMapper;
 
     public List<TaskResponse> mapAllTasks (Iterable<Task> AllTasks){
         List<TaskResponse> allTaskResponses = new ArrayList<>();
@@ -60,14 +55,14 @@ public class TaskMapper {
                 updates).
      */
 
-    public FullTaskInfoResponse mapFullTaskInfoResponse(Task task){
+    public FullTaskInfoResponse mapFullTaskInfoResponse(Task task, List<EmployeeResponse> fetchedEmployees){
         return new FullTaskInfoResponse(
                 task.getId(),
                 task.getTitle(),
                 task.getDesc(),
                 getDifficulty(task),
                 task.getTaskStatus(),
-                employeeMapper.mapAllEmployees(task.getEmployees()),
+                fetchedEmployees,
                 task.getUpdates()
         );
     }
