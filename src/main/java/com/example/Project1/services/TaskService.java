@@ -56,4 +56,9 @@ public class TaskService {
         repository.save(task);
         return new GenericResponse<>(task);
     }
+
+    public GenericResponse<Task> createNewTask(Task task) {
+        repository.save(task);
+        return new GenericResponse<>(task);
+    }
 }

@@ -149,6 +149,7 @@ public class Employee {
     }
 
     private void setCompany() {
+        if(this.unit.getDepartment()!=null)
         this.company = this.businessUnit.getCompany();
     }
 
@@ -157,6 +158,7 @@ public class Employee {
     }
 
     private void setBusinessUnit() {
+        if(this.unit.getDepartment()!=null)
         this.businessUnit = this.department.getBusinessUnit();
     }
 
@@ -165,6 +167,7 @@ public class Employee {
     }
 
     private void setDepartment() {
+        if(this.unit.getDepartment()!=null)
         this.department = this.unit.getDepartment();
     }
 

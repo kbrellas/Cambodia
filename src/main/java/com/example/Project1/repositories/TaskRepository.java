@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TaskRepository extends CrudRepository <Task, Long> {
-
+    /*
     @Override
     @RestResource(exported = false)
     <S extends Task> Iterable<S> saveAll(Iterable<S> entities);
@@ -31,5 +31,5 @@ public interface TaskRepository extends CrudRepository <Task, Long> {
     @Override
     @RestResource(exported = false)
     void deleteById(Long aLong);
-
+ */
 }

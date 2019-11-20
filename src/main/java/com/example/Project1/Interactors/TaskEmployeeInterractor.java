@@ -57,4 +57,6 @@ public GenericResponse<FullTaskInfoResponse> getFullTaskById(long id){
         return new GenericResponse<>(new Error(0,"Internal Server Error","Unable to retrieve data"));
     }
 }
+
+
 }

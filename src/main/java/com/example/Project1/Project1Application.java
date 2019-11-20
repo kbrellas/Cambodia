@@ -154,10 +154,19 @@ public class Project1Application implements CommandLineRunner {
 
 		List<Employee> SomeEmployees = new ArrayList<>();
 		SomeEmployees.add(emp1);
-		SomeEmployees.add(emp2);
-		SomeEmployees.add(emp3);
-		SomeEmployees.add(emp4);
-		SomeEmployees.add(emp5);
+		List<Employee> SomeEmployees2 = new ArrayList<>();
+
+		SomeEmployees2.add(emp2);
+
+		List<Employee> SomeEmployees3 = new ArrayList<>();
+
+		SomeEmployees3.add(emp3);
+		List<Employee> SomeEmployees4 = new ArrayList<>();
+
+		SomeEmployees4.add(emp4);
+		List<Employee> SomeEmployees5 = new ArrayList<>();
+
+		SomeEmployees5.add(emp5);
 
 		List<String> Updates = new ArrayList<>();
 		Updates.add("update 1");
@@ -173,13 +182,13 @@ public class Project1Application implements CommandLineRunner {
 
 		Task task1 = new Task("Task1","Το πρώτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees);
 		Task task2 = new Task("Task2","Το δεύτερο Task",4,5,1,TaskStatus.NEW,Updates,null);
-		Task task3 = new Task("Task3","Το τρίτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees);
+		Task task3 = new Task("Task3","Το τρίτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees2);
 		Task task4 = new Task("Task4","Το τέταρτο Task",4,5,1,TaskStatus.NEW,null,null);
 		Task task5 = new Task("Task5","Το πέμπτο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task6 = new Task("Task6","Το έκτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees);
-		Task task7 = new Task("Task7","Το έβδομο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task6 = new Task("Task6","Το έκτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees3);
+		Task task7 = new Task("Task7","Το έβδομο Task",4,5,1,TaskStatus.NEW,null,SomeEmployees4);
 		Task task8 = new Task("Task8","Το ογδοο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task9 = new Task("Task9","Το ένωατο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task9 = new Task("Task9","Το ένωατο Task",4,5,1,TaskStatus.NEW,null,SomeEmployees5);
 		Task task10 = new Task("Task10","Το δέκατο Task",4,5,1,TaskStatus.NEW,null,null);
 
 		taskRepository.save(task1);
