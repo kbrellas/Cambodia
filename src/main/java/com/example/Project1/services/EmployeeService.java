@@ -19,14 +19,20 @@ import java.util.*;
 @Service
 public class EmployeeService {
 
-    @Autowired
+
     private EmployeeMapper mapper;
 
-    @Autowired
+
     private EmployeeRepository repository;
 
-    @Autowired
+
     private SearchEmployeeStrategyFactory factory;
+
+    public EmployeeService(EmployeeMapper mapper, EmployeeRepository repository, SearchEmployeeStrategyFactory factory) {
+        this.mapper = mapper;
+        this.repository = repository;
+        this.factory = factory;
+    }
 
     public GenericResponse<List<EmployeeResponse>> getAllEmployees() {
         try {

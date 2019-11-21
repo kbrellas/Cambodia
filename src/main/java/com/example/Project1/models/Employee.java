@@ -36,12 +36,28 @@ public class Employee {
     private Unit unit;
     private String position;
 
-   // @ManyToMany(mappedBy = "employees")
-   // private List<Task> tasks;
+
 
     public Employee() {
     }
 
+    public Employee(long id, int recordNumber, String lastName, String firstName, String homeAddress, String telephoneNo, @NotNull LocalDate hireDate, LocalDate leaveDate, Status status, ContractType contractType, Unit unit, String position) {
+        this.id = id;
+        this.recordNumber = recordNumber;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.homeAddress = homeAddress;
+        this.telephoneNo = telephoneNo;
+        this.hireDate = hireDate;
+        this.leaveDate = leaveDate;
+        this.status = status;
+        this.contractType = contractType;
+        this.unit = unit;
+        this.position = position;
+        this.setDepartment();
+        this.setBusinessUnit();
+        this.setCompany();
+    }
 
     public Employee(int recordNumber, String lastName, String firstName, String homeAddress, String telephoneNo, LocalDate hireDate, LocalDate leaveDate, Status status, ContractType contractType, Unit unit, String position) {
         this.recordNumber=recordNumber;
@@ -210,11 +226,5 @@ public class Employee {
     }
 
 
-   // public List<Task> getTasks() {
-    //    return tasks;
-  //  }
 
-   // public void setTasks(List<Task> tasks) {
-    //    this.tasks = tasks;
-   // }
 }
