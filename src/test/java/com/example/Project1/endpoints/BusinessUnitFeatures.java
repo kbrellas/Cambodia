@@ -1,6 +1,7 @@
 package com.example.Project1.endpoints;
 
 import com.example.Project1.Project1Application;
+import com.example.Project1.jsons.BusinessUnitJsons;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,35 +35,11 @@ public class BusinessUnitFeatures {
         try {
             mockMvc.perform(MockMvcRequestBuilders.get("/allBusinessUnits").contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect(content().json(allBusinessUnitJson()));
+                    .andExpect(content().json(BusinessUnitJsons.allBusinessUnitsJson));
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    private String allBusinessUnitJson() {
-        String json=" [\n" +
-                "    {\n" +
-                "        \"id\": 1,\n" +
-                "        \"name\": \"Business Unit 1\",\n" +
-                "        \"companyName\": \"Unisystems\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"id\": 2,\n" +
-                "        \"name\": \"Business Unit 2\",\n" +
-                "        \"companyName\": \"Unisystems\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"id\": 3,\n" +
-                "        \"name\": \"Business Unit 3\",\n" +
-                "        \"companyName\": \"InfoQuest\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"id\": 4,\n" +
-                "        \"name\": \"Business Unit 4\",\n" +
-                "        \"companyName\": \"InfoQuest\"\n" +
-                "    }\n" +
-                "]";
-        return json;
-    }
+
 }

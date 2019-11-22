@@ -1,5 +1,6 @@
 package com.example.Project1.endpoints;
 import com.example.Project1.Project1Application;
+import com.example.Project1.jsons.CompanyJsons;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,25 +36,12 @@ public class CompanyFeatures {
         try {
             mockMvc.perform(MockMvcRequestBuilders.get("/allCompanies").contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect(content().json(allCompanyJson()));
+                    .andExpect(content().json(CompanyJsons.allCompaniesJson));
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    private String allCompanyJson() {
-        String json = "[\n" +
-                "    {\n" +
-                "        \"id\": 1,\n" +
-                "        \"name\": \"Unisystems\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"id\": 2,\n" +
-                "        \"name\": \"InfoQuest\"\n" +
-                "    }\n" +
-                "]";
-        return json;
-    }
 
 
 }
