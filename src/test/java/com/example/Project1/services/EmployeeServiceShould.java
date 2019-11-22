@@ -47,7 +47,7 @@ public class EmployeeServiceShould {
     private Iterable<Employee> mockedEmployees;
     @Mock
     private BusinessUnitRepository businessUnitRepository;
-  
+
 
     @Before
     public void setup() {

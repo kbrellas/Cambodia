@@ -18,16 +18,16 @@ import java.util.List;
 @RestController
 public class EmployeeController {
 
-    @Autowired
+
     private EmployeeService service;
 
-    @Autowired
+
     private EmployeeToUnitAssociator associator;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
-    @Autowired
-    UnitRepository unitRepository;
+    public EmployeeController(EmployeeService service, EmployeeToUnitAssociator associator) {
+        this.service = service;
+        this.associator = associator;
+    }
 
     @GetMapping("/allEmployees")
     public ResponseEntity getAllEmployees(){
