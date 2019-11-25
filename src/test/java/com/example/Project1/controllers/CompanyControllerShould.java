@@ -1,6 +1,7 @@
 package com.example.Project1.controllers;
 
 import com.example.Project1.models.CompanyResponse;
+import com.example.Project1.models.Error;
 import com.example.Project1.models.GenericResponse;
 import com.example.Project1.services.CompanyService;
 import org.junit.Assert;
@@ -50,5 +51,21 @@ public class CompanyControllerShould {
         Assert.assertThat(actual.getBody(),hasItems(companyResponse1,companyResponse2,companyResponse3));
         Assert.assertEquals(HttpStatus.OK,actual.getStatusCode());
     }
+
+    @Test
+    public void returnErrorWhenAllCompaniesServiceFails(){
+        Error error=MockServiceFailure();
+        ResponseEntity actual= controller.getAllCompanies();
+        Assert.assertEquals(error,actual.getBody());
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,actual.getStatusCode());
+    }
+
+
+    private Error MockServiceFailure() {
+        Error error = new Error(0,"Error","Something went wrong");
+        when(service.getAllCompanies()).thenReturn(new GenericResponse<>(error));
+        return error;
+    }
+
 
 }
