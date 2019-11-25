@@ -34,11 +34,11 @@ public class BusinessUnitControllerShould {
     @Before
     public  void setup(){
         MockitoAnnotations.initMocks(this);
-        List<BusinessUnitResponse> mockedCompanyResponseList = new ArrayList<>();
-        mockedCompanyResponseList.add(bu1);
-        mockedCompanyResponseList.add(bu2);
-        mockedCompanyResponseList.add(bu3);
-        GenericResponse<List<BusinessUnitResponse>> serviceResponse=new GenericResponse<>(mockedCompanyResponseList);
+        List<BusinessUnitResponse> mockedBusinessUnitResponseList = new ArrayList<>();
+        mockedBusinessUnitResponseList.add(bu1);
+        mockedBusinessUnitResponseList.add(bu2);
+        mockedBusinessUnitResponseList.add(bu3);
+        GenericResponse<List<BusinessUnitResponse>> serviceResponse=new GenericResponse<>(mockedBusinessUnitResponseList);
         when(service.getAllBusinessUnits()).thenReturn(serviceResponse);
         controller=new BusinessUnitController(service);
     }
