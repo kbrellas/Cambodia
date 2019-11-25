@@ -37,11 +37,11 @@ public class DepartmentControllerShould {
     @Before
     public  void setup(){
         MockitoAnnotations.initMocks(this);
-        List<DepartmentResponse> mockedCompanyResponseList = new ArrayList<>();
-        mockedCompanyResponseList.add(departmentResponse1);
-        mockedCompanyResponseList.add(departmentResponse2);
-        mockedCompanyResponseList.add(departmentResponse3);
-        GenericResponse<List<DepartmentResponse>> serviceResponse=new GenericResponse<>(mockedCompanyResponseList);
+        List<DepartmentResponse> mockedDepartmentResponseList = new ArrayList<>();
+        mockedDepartmentResponseList.add(departmentResponse1);
+        mockedDepartmentResponseList.add(departmentResponse2);
+        mockedDepartmentResponseList.add(departmentResponse3);
+        GenericResponse<List<DepartmentResponse>> serviceResponse=new GenericResponse<>(mockedDepartmentResponseList);
         when(service.getAllDepartments()).thenReturn(serviceResponse);
         controller=new DepartmentController(service);
     }
