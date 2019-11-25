@@ -15,8 +15,13 @@ import java.util.List;
 @RestController
 public class TaskController {
 
-    @Autowired
+
     private TaskService service;
+
+    public TaskController(TaskService service, TaskEmployeeInterractor interractor) {
+        this.service = service;
+        this.interractor = interractor;
+    }
 
     @Autowired
     private TaskEmployeeInterractor interractor;
