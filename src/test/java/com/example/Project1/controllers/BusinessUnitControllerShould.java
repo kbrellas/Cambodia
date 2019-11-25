@@ -43,7 +43,7 @@ public class BusinessUnitControllerShould {
         controller=new BusinessUnitController(service);
     }
     @Test
-    public void returnAllCompanies(){
+    public void returnAllBusinessUnits(){
         ResponseEntity<List<BusinessUnitResponse>> actual=controller.getAllBusinessUnits();
         Assert.assertThat(actual.getBody(),hasItems(bu1,bu2,bu3));
         Assert.assertEquals(HttpStatus.OK,actual.getStatusCode());
