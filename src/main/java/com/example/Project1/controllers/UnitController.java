@@ -1,11 +1,8 @@
 package com.example.Project1.controllers;
 
-import com.example.Project1.models.EmployeeResponse;
 import com.example.Project1.models.GenericResponse;
-import com.example.Project1.models.GetAllUnitResponses;
 import com.example.Project1.models.UnitResponse;
 import com.example.Project1.services.UnitService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +12,12 @@ import java.util.List;
 
 @RestController
 public class UnitController {
-    @Autowired
+
     private UnitService service;
+
+    public UnitController(UnitService service) {
+        this.service = service;
+    }
 
     @GetMapping("/allUnits")
     public ResponseEntity getAllUnits() {
