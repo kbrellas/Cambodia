@@ -50,7 +50,7 @@ public class BusinessUnitControllerShould {
     }
 
     @Test
-    public void returnErrorWhenAllCompaniesServiceFails(){
+    public void returnErrorWhenAllBusinessUnitsServiceFails(){
         Error error=MockServiceFailure();
         ResponseEntity actual= controller.getAllBusinessUnits();
         Assert.assertEquals(error,actual.getBody());
