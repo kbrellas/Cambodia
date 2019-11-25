@@ -18,14 +18,14 @@ import java.util.Optional;
 @Service
 public class DepartmentService {
 
-    @Autowired
     private DepartmentMapper mapper;
 
-    @Autowired
     private DepartmentRepository repository;
 
-    @Autowired
-    private BusinessUnitRepository businessUnitRepository;
+    public DepartmentService(DepartmentMapper mapper, DepartmentRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
 
     public GenericResponse<List<DepartmentResponse>> getAllDepartments(){
        try {
