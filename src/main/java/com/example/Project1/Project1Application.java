@@ -1,14 +1,17 @@
 package com.example.Project1;
 
-import com.example.Project1.repositories.*;
 import com.example.Project1.models.*;
+import com.example.Project1.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -26,7 +29,10 @@ public class Project1Application implements CommandLineRunner {
 	EmployeeRepository employeeRepository;
 	@Autowired
 	TaskRepository taskRepository;
-
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 
 	public static void main(String[] args) {
@@ -208,5 +214,36 @@ public class Project1Application implements CommandLineRunner {
 		taskRepository.save(task8);
 		taskRepository.save(task9);
 		taskRepository.save(task10);
+
+		/*User u1=new User("user1","user1");
+		User u2=new User("user2","user2");
+		User u3=new User("user3","123");*/
+
+	/*	PasswordEncoder passwordEncoder=new PasswordEncoder() {
+			@Override
+			public String encode(CharSequence rawPassword) {
+				return rawPassword.toString();
+			}
+
+			@Override
+			public boolean matches(CharSequence rawPassword, String encodedPassword) {
+				return false;
+			}
+		};*/
+		User admin = new User("admin",passwordEncoder.encode("admin"),"admin","");
+		User cm = new User("companyManager",passwordEncoder.encode("companyManager"),"companyManager","");
+		User bm = new User("businessUnitManager",passwordEncoder.encode("businessUnitManager"),"BusinessUnitManager","");
+		User dm = new User("departmentManager",passwordEncoder.encode("departmentManager"),"DepartmentManager","");
+		User um = new User("unitManager",passwordEncoder.encode("unitManager"),"unitManager","");
+		User em = new User("employee",passwordEncoder.encode("employee"),"employee","");
+
+		List<User> users = Arrays.asList(admin,cm,dm,um,bm,em);
+
+		// Save to db
+		userRepository.saveAll(users);
+
+		/*userRepository.save(u1);
+		userRepository.save(u2);
+		userRepository.save(u3);*/
 	}
 }
