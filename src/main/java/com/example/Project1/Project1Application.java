@@ -215,21 +215,7 @@ public class Project1Application implements CommandLineRunner {
 		taskRepository.save(task9);
 		taskRepository.save(task10);
 
-		/*User u1=new User("user1","user1");
-		User u2=new User("user2","user2");
-		User u3=new User("user3","123");*/
 
-	/*	PasswordEncoder passwordEncoder=new PasswordEncoder() {
-			@Override
-			public String encode(CharSequence rawPassword) {
-				return rawPassword.toString();
-			}
-
-			@Override
-			public boolean matches(CharSequence rawPassword, String encodedPassword) {
-				return false;
-			}
-		};*/
 		User admin = new User("admin",passwordEncoder.encode("admin"),"admin","");
 		User cm = new User("companyManager",passwordEncoder.encode("companyManager"),"companyManager","");
 		User bm = new User("businessUnitManager",passwordEncoder.encode("businessUnitManager"),"BusinessUnitManager","");
@@ -239,11 +225,9 @@ public class Project1Application implements CommandLineRunner {
 
 		List<User> users = Arrays.asList(admin,cm,dm,um,bm,em);
 
-		// Save to db
+
 		userRepository.saveAll(users);
 
-		/*userRepository.save(u1);
-		userRepository.save(u2);
-		userRepository.save(u3);*/
+
 	}
 }
