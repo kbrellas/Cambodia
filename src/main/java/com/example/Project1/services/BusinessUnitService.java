@@ -18,11 +18,14 @@ import java.util.Optional;
 @Service
 public class BusinessUnitService {
 
-    @Autowired
     private BusinessUnitMapper mapper;
 
-    @Autowired
     private BusinessUnitRepository repository;
+
+    public BusinessUnitService(BusinessUnitMapper mapper, BusinessUnitRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
 
     public GenericResponse<List<BusinessUnitResponse>> getAllBusinessUnits(){
         try{

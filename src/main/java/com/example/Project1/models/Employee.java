@@ -36,12 +36,33 @@ public class Employee {
     private Unit unit;
     private String position;
 
+<<<<<<< HEAD
     /*@ManyToMany(mappedBy = "employees")
     private List<Task> tasks;*/
+=======
+
+>>>>>>> origin/dev
 
     public Employee() {
     }
 
+    public Employee(long id, int recordNumber, String lastName, String firstName, String homeAddress, String telephoneNo, @NotNull LocalDate hireDate, LocalDate leaveDate, Status status, ContractType contractType, Unit unit, String position) {
+        this.id = id;
+        this.recordNumber = recordNumber;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.homeAddress = homeAddress;
+        this.telephoneNo = telephoneNo;
+        this.hireDate = hireDate;
+        this.leaveDate = leaveDate;
+        this.status = status;
+        this.contractType = contractType;
+        this.unit = unit;
+        this.position = position;
+        this.setDepartment();
+        this.setBusinessUnit();
+        this.setCompany();
+    }
 
     public Employee(int recordNumber, String lastName, String firstName, String homeAddress, String telephoneNo, LocalDate hireDate, LocalDate leaveDate, Status status, ContractType contractType, Unit unit, String position) {
         this.recordNumber=recordNumber;
@@ -149,6 +170,7 @@ public class Employee {
     }
 
     private void setCompany() {
+        if(this.unit.getDepartment()!=null)
         this.company = this.businessUnit.getCompany();
     }
 
@@ -157,6 +179,7 @@ public class Employee {
     }
 
     private void setBusinessUnit() {
+        if(this.unit.getDepartment()!=null)
         this.businessUnit = this.department.getBusinessUnit();
     }
 
@@ -165,6 +188,7 @@ public class Employee {
     }
 
     private void setDepartment() {
+        if(this.unit.getDepartment()!=null)
         this.department = this.unit.getDepartment();
     }
 
@@ -207,6 +231,7 @@ public class Employee {
     }
 
 
+<<<<<<< HEAD
     /*public List<Task> getTasks() {
         return tasks;
     }
@@ -214,4 +239,7 @@ public class Employee {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }*/
+=======
+
+>>>>>>> origin/dev
 }

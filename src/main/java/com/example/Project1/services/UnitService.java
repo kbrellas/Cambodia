@@ -19,11 +19,14 @@ import java.util.Optional;
 @Service
 public class UnitService {
 
-    @Autowired
     private UnitMapper mapper;
 
-    @Autowired
     private UnitRepository repository;
+
+    public UnitService(UnitMapper mapper, UnitRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
 
     public GenericResponse<List<UnitResponse>> getAllUnits(){
         try {

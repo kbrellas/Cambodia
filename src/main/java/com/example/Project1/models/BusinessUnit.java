@@ -17,11 +17,20 @@ public class BusinessUnit {
         this.company = company;
     }
 
+    public BusinessUnit(long id, String name, Company company) {
+        this.id = id;
+        this.name = name;
+        this.company = company;
+    }
+
+    public BusinessUnit() {
+    }
+
     public BusinessUnit(String name) {
         this.name = name;
     }
 
-    public BusinessUnit() {
+    public BusinessUnit(long l, String unisystems) {
     }
 
     public long getId() {

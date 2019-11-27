@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class Project1Application implements CommandLineRunner {
@@ -144,21 +146,56 @@ public class Project1Application implements CommandLineRunner {
 		Employee emp3= new Employee(15463,"Stuart", "Martha", "Palomino St. 23", "6974243585" , LocalDate.of(2016,7,12),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un9,"Mid Software Engineer");
 		Employee emp4= new Employee(22341,"Dickinson", "Joy", "White St. 543", "6972234576" , LocalDate.of(2017,4,21),LocalDate.of(2019,2,1),Status.INACTIVE ,ContractType.EXTERNAL,un14,"Junior Software Engineer");
 		Employee emp5= new Employee(14142,"Rayleigh", "Roger", "Blue Lagoon St. 127", "6972236587" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un10,"Junior Software Developer");
-		employeeRepository.save(emp1);
+        Employee emp6= new Employee(14144,"Monkey", "Luffy", "Blue Lagoon St. 122", "6972234447" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un3,"Junior Software Developer");
+        Employee emp7= new Employee(12323,"Roronoa", "Zoro", "Blue Lagoon St. 121", "6972235557" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un3,"Senior Software Developer");
+        Employee emp8= new Employee(98742,"HawkEye", "Mihawk", "Blue Lagoon St. 123", "6972666587" , LocalDate.of(2013,6,15),null,Status.ACTIVE ,ContractType.UNISYSTEMS,un3,"Master Software Developer");
+
+        employeeRepository.save(emp1);
 		employeeRepository.save(emp2);
 		employeeRepository.save(emp3);
 		employeeRepository.save(emp4);
 		employeeRepository.save(emp5);
+        employeeRepository.save(emp6);
+        employeeRepository.save(emp7);
+        employeeRepository.save(emp8);
 
-		Task task1 = new Task("Task1","Το πρώτο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task2 = new Task("Task2","Το δεύτερο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task3 = new Task("Task3","Το τρίτο Task",4,5,1,TaskStatus.NEW,null,null);
+		List<Employee> SomeEmployees = new ArrayList<>();
+		SomeEmployees.add(emp1);
+		List<Employee> SomeEmployees2 = new ArrayList<>();
+
+		SomeEmployees2.add(emp2);
+
+		List<Employee> SomeEmployees3 = new ArrayList<>();
+
+		SomeEmployees3.add(emp3);
+		List<Employee> SomeEmployees4 = new ArrayList<>();
+
+		SomeEmployees4.add(emp4);
+		List<Employee> SomeEmployees5 = new ArrayList<>();
+
+		SomeEmployees5.add(emp5);
+
+		List<String> Updates = new ArrayList<>();
+		Updates.add("update 1");
+		Updates.add("update 2");
+		Updates.add("update 3");
+		Updates.add("update 4");
+		Updates.add("update 5");
+		Updates.add("update 6");
+		Updates.add("update 7");
+		Updates.add("update 8");
+		Updates.add("update 9");
+		Updates.add("update 10");
+
+		Task task1 = new Task("Task1","Το πρώτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees);
+		Task task2 = new Task("Task2","Το δεύτερο Task",4,5,1,TaskStatus.NEW,Updates,null);
+		Task task3 = new Task("Task3","Το τρίτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees2);
 		Task task4 = new Task("Task4","Το τέταρτο Task",4,5,1,TaskStatus.NEW,null,null);
 		Task task5 = new Task("Task5","Το πέμπτο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task6 = new Task("Task6","Το έκτο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task7 = new Task("Task7","Το έβδομο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task6 = new Task("Task6","Το έκτο Task",4,5,1,TaskStatus.NEW,Updates,SomeEmployees3);
+		Task task7 = new Task("Task7","Το έβδομο Task",4,5,1,TaskStatus.NEW,null,SomeEmployees4);
 		Task task8 = new Task("Task8","Το ογδοο Task",4,5,1,TaskStatus.NEW,null,null);
-		Task task9 = new Task("Task9","Το ένωατο Task",4,5,1,TaskStatus.NEW,null,null);
+		Task task9 = new Task("Task9","Το ένωατο Task",4,5,1,TaskStatus.NEW,null,SomeEmployees5);
 		Task task10 = new Task("Task10","Το δέκατο Task",4,5,1,TaskStatus.NEW,null,null);
 
 		taskRepository.save(task1);
