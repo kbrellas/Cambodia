@@ -19,7 +19,7 @@ public class FullTaskInfoResponse {
     private String title;
     private String desc;
     private Difficulty difficulty;
-    private  TaskStatus taskStatus;
+    private TaskStatus taskStatus;
     private List<EmployeeResponse> assignedEmployees;
     private List<String> updates;
 
