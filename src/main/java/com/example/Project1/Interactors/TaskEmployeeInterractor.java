@@ -39,50 +39,61 @@ public class TaskEmployeeInterractor {
     }
 
     public GenericResponse<List<FullTaskInfoResponse>> getFullTasksByDifficultyAndNumberOfEmployees(String difficulty, long numberOfEmployees) {
-        try {
-            GenericResponse<List<Task>> fetchedTasks = taskService.getAllTasksByDifficulty(difficulty);
-            if (fetchedTasks.getError() != null) {
-                return new GenericResponse<>(fetchedTasks.getError());
-            }
-            List<FullTaskInfoResponse> fullResponse = new ArrayList<>();
-            for (Task task : fetchedTasks.getData()) {
-                List<Employee> employees = new ArrayList<>();
-                if (task.getEmployees().size() == numberOfEmployees) {
-                    employees = task.getEmployees();
-                    GenericResponse<List<EmployeeResponse>> fetchedEmployees = employeeService.getSpecificEmployees(employees);
-                    fullResponse.add(taskService.getFullTaskInfoResponse(task, fetchedEmployees.getData()).getData());
+        for (Difficulty difficultyValue : Difficulty.values()) {
+            if (difficulty.equalsIgnoreCase(difficultyValue.toString())) {
+                try {
+
+                    GenericResponse<List<Task>> fetchedTasks = taskService.getAllTasksByDifficulty(difficulty);
+                    if (fetchedTasks.getError() != null) {
+                        return new GenericResponse<>(fetchedTasks.getError());
+                    }
+                    List<FullTaskInfoResponse> fullResponse = new ArrayList<>();
+                    for (Task task : fetchedTasks.getData()) {
+                        List<Employee> employees = new ArrayList<>();
+                        if (task.getEmployees().size() == numberOfEmployees) {
+                            employees = task.getEmployees();
+                            GenericResponse<List<EmployeeResponse>> fetchedEmployees = employeeService.getSpecificEmployees(employees);
+                            fullResponse.add(taskService.getFullTaskInfoResponse(task, fetchedEmployees.getData()).getData());
+                        }
+                    }
+                    if(fullResponse.isEmpty()){
+                        return new GenericResponse<>(new Error(0,"no tasks found","with employee size : "+numberOfEmployees));
+                    }
+                    return new GenericResponse<>(fullResponse);
+                } catch (NoSuchElementException e) {
+                    e.printStackTrace();
+                    return new GenericResponse<>(new Error(0,"Internal Server Error","Unable to retrieve data"));
                 }
             }
-            if(fullResponse.isEmpty()){
-                return new GenericResponse<>(new Error(0,"no tasks found","with employee size : "+numberOfEmployees));
-            }
-            return new GenericResponse<>(fullResponse);
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            return new GenericResponse<>(new Error(0,"Internal Server Error","Unable to retrieve data"));
         }
+        return new GenericResponse<>(new Error(0,"Wrong difficulty status","Could not match the provided difficulty"));
     }
 
     public GenericResponse<List<FullTaskInfoResponse>> getFullTasksByDifficulty(String difficulty) {
-        try {
-            GenericResponse<List<Task>> fetchedTasks = taskService.getAllTasksByDifficulty(difficulty);
-            if (fetchedTasks.getError() != null) {
-                return new GenericResponse<>(fetchedTasks.getError());
+        for (Difficulty difficultyValue : Difficulty.values()) {
+            if (difficulty.equalsIgnoreCase(difficultyValue.toString())) {
+                try {
+                    GenericResponse<List<Task>> fetchedTasks = taskService.getAllTasksByDifficulty(difficulty);
+                    if (fetchedTasks.getError() != null) {
+                        return new GenericResponse<>(fetchedTasks.getError());
+                    }
+                    List<FullTaskInfoResponse> fullResponse = new ArrayList<>();
+                    for (Task task : fetchedTasks.getData()) {
+                        List<Employee> employees = task.getEmployees();
+                        GenericResponse<List<EmployeeResponse>> fetchedEmployees = employeeService.getSpecificEmployees(employees);
+                        //if (fetchedEmployees.getError() != null) {
+                        //    return new GenericResponse<>(fetchedEmployees.getError());
+                        //}
+                        fullResponse.add(taskService.getFullTaskInfoResponse(task, fetchedEmployees.getData()).getData());
+                    }
+                    return new GenericResponse<>(fullResponse);
+                } catch (NoSuchElementException e) {
+                    e.printStackTrace();
+                    return new GenericResponse<>(new Error(0, "Internal Server Error", "Unable to retrieve data"));
+                }
             }
-            List<FullTaskInfoResponse> fullResponse = new ArrayList<>();
-            for (Task task : fetchedTasks.getData()) {
-                List<Employee> employees = task.getEmployees();
-                GenericResponse<List<EmployeeResponse>> fetchedEmployees = employeeService.getSpecificEmployees(employees);
-                //if (fetchedEmployees.getError() != null) {
-                //    return new GenericResponse<>(fetchedEmployees.getError());
-                //}
-                fullResponse.add(taskService.getFullTaskInfoResponse(task, fetchedEmployees.getData()).getData());
-            }
-            return new GenericResponse<>(fullResponse);
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            return new GenericResponse<>(new Error(0,"Internal Server Error","Unable to retrieve data"));
         }
+        return new GenericResponse<>(new Error(0,"Wrong difficulty status","Could not match the provided difficulty"));
     }
 
     public GenericResponse<List<FullTaskInfoResponse>> getFullTasksByNumberOfEmployees(long numberOfEmployees) {

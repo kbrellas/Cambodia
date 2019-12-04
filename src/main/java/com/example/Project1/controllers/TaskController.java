@@ -45,7 +45,7 @@ public class TaskController {
     }
 
     @GetMapping("/findTaskByDifficultyAndNumberOfEmployees/{difficulty}/{numberOfEmployees}")
-    public ResponseEntity getTaskById (@PathVariable String difficulty, @PathVariable long numberOfEmployees) {
+    public ResponseEntity getTaskByDifficultyAndNumberOfEmployees (@PathVariable String difficulty, @PathVariable long numberOfEmployees) {
         GenericResponse<List<FullTaskInfoResponse>> response = interractor.getFullTasksByDifficultyAndNumberOfEmployees(difficulty, numberOfEmployees);
         if (response.getError() != null) {
             return new ResponseEntity<>(
