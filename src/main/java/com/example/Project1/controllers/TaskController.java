@@ -44,6 +44,57 @@ public class TaskController {
         );
     }
 
+    @GetMapping("/findTaskByDifficultyAndNumberOfEmployees/{difficulty}/{numberOfEmployees}")
+    public ResponseEntity getTaskByDifficultyAndNumberOfEmployees (@PathVariable String difficulty, @PathVariable long numberOfEmployees) {
+        GenericResponse<List<FullTaskInfoResponse>> response = interractor.getFullTasksByDifficultyAndNumberOfEmployees(difficulty, numberOfEmployees);
+        if (response.getError() != null) {
+            return new ResponseEntity<>(
+                    response.getError(),
+                    null,
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+        return new ResponseEntity<>(
+                response.getData(),
+                null,
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/findTaskByDifficulty/{difficulty}")
+    public ResponseEntity getTaskByDifficulty (@PathVariable String difficulty) {
+        GenericResponse<List<FullTaskInfoResponse>> response = interractor.getFullTasksByDifficulty(difficulty);
+        if (response.getError() != null) {
+            return new ResponseEntity<>(
+                    response.getError(),
+                    null,
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+        return new ResponseEntity<>(
+                response.getData(),
+                null,
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/findTaskByNumberOfEmployees/{numberOfEmployees}")
+    public ResponseEntity getTaskByNumberOfEmployees (@PathVariable long numberOfEmployees) {
+        GenericResponse<List<FullTaskInfoResponse>> response = interractor.getFullTasksByNumberOfEmployees(numberOfEmployees);
+        if (response.getError() != null) {
+            return new ResponseEntity<>(
+                    response.getError(),
+                    null,
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+        return new ResponseEntity<>(
+                response.getData(),
+                null,
+                HttpStatus.OK
+        );
+    }
+
     @GetMapping("/findTaskById/{taskId}")
     public ResponseEntity getTaskById(@PathVariable long taskId) {
         GenericResponse<FullTaskInfoResponse> response = interractor.getFullTaskById(taskId);
@@ -74,6 +125,15 @@ public class TaskController {
     @PatchMapping("/updateTask/{taskId}")
     public ResponseEntity updateTask(@RequestBody Task partialTask, @PathVariable long taskId){
         GenericResponse<Task> response=interractor.updateTask(partialTask,taskId);
+        if(response.getError()!=null){
+            return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(response.getData(),null,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteTask/{taskId}")
+    public ResponseEntity deleteTask(@PathVariable long taskId){
+        GenericResponse<TaskResponse> response=service.deleteTask(taskId);
         if(response.getError()!=null){
             return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
         }

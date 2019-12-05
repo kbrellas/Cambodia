@@ -36,7 +36,35 @@ public class TaskService {
         }
     }
 
-   public GenericResponse<Task> getTaskById(long id){
+    public GenericResponse<List<Task>> getAllTasksByDifficulty(String difficulty) {
+        try {
+            Iterable<Task> tasks = repository.findAll();
+            List<Task> retrievedTasks = mapper.mapTasksByDifficulty(tasks, difficulty);
+            if (retrievedTasks.isEmpty()) {
+                return new GenericResponse<>(new Error(0, "Empty Repository", "There are no Tasks with difficulty " + difficulty + " stored"));
+            }
+            return new GenericResponse<>(retrievedTasks);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new GenericResponse<>(new Error(0,"Internal Server Error", "Unable to retrieve data"));
+        }
+    }
+
+    public GenericResponse<List<Task>> getAllTasksByNumberOfEmployees(long numberOfEmployees) {
+        Iterable<Task> tasks = repository.findAll();
+        List<Task> retrievedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getEmployees().size() == numberOfEmployees)
+                retrievedTasks.add(task);
+        }
+        if (retrievedTasks.isEmpty()) {
+            return new GenericResponse<>(new Error(0, "Empty Repository", "There are no Tasks with number of employees " + numberOfEmployees + " stored"));
+        }
+
+        return new GenericResponse<>(retrievedTasks);
+    }
+
+    public GenericResponse<Task> getTaskById(long id){
         Optional<Task> fetchedTask= repository.findById(id);
         if(!fetchedTask.isPresent()){
             return new GenericResponse<>(new Error(0,"Wrong input error","Task with id : "+id+" does not exist."));
@@ -44,10 +72,10 @@ public class TaskService {
         Task task= fetchedTask.get();
         return new GenericResponse<>(task);
 
-   }
+    }
 
    public GenericResponse<FullTaskInfoResponse> getFullTaskInfoResponse(Task task,List<EmployeeResponse> employees){
-        return new GenericResponse<>(mapper.mapFullTaskInfoResponse(task,employees));
+        return new GenericResponse<>(mapper.mapFullTaskInfoResponse(task, employees));
    }
 
     public GenericResponse<Task> assignEmployeeToTask(Employee employee, Task task) {
@@ -120,5 +148,14 @@ public class TaskService {
         repository.save(retrievedTask);
         return new GenericResponse<>(retrievedTask);
 
+    }
+
+    public GenericResponse<TaskResponse> deleteTask(long taskId) {
+        Optional<Task> fetchedTask= repository.findById(taskId);
+        if(fetchedTask.isPresent()){
+            repository.deleteById(taskId);
+            return new GenericResponse<>(mapper.mapTaskToTaskResponse(fetchedTask.get()));
+        }
+        return new GenericResponse<>(new Error(0,"Wrong input","Id does not exist"));
     }
 }

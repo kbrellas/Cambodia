@@ -3,19 +3,7 @@ package com.example.Project1.models;
 import javax.persistence.*;
 import java.util.List;
 
-/*
-{   5)  Δημιουργήστε ένα νέο Entity task (
-            id,
-            title,
-            desc ,
-            estimationA : int (οι μέρες που χρειάζεται για να υλοποηθεί),
-            estimationB: int,
-            estimationC: int, status[NEW, STARTED, DONE],
-            updates List<String>),
-            ένας υπάλληλος θα μπορεί να έχει assigned από κανένα μέχρι Χ tasks,
-            ένα task θα μπορούν να το δουλεύουν από 0 μέχρι N υπάλληλοι.
-}
- */
+
 
 @Entity
 public class Task {

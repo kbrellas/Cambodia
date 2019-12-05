@@ -35,6 +35,8 @@ public class Employee {
     @ManyToOne
     private Unit unit;
     private String position;
+    @ManyToMany(mappedBy = "employees",cascade = CascadeType.REMOVE)
+    private List<Task> tasks;
 
 
 

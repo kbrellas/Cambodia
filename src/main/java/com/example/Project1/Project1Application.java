@@ -178,7 +178,7 @@ public class Project1Application implements CommandLineRunner {
 
 		SomeEmployees4.add(emp4);
 		List<Employee> SomeEmployees5 = new ArrayList<>();
-
+		SomeEmployees5.add(emp4);
 		SomeEmployees5.add(emp5);
 
 		List<String> Updates = new ArrayList<>();
@@ -218,8 +218,8 @@ public class Project1Application implements CommandLineRunner {
 
 		User admin = new User("admin",passwordEncoder.encode("admin"),"admin","");
 		User cm = new User("companyManager",passwordEncoder.encode("companyManager"),"companyManager","");
-		User bm = new User("businessUnitManager",passwordEncoder.encode("businessUnitManager"),"BusinessUnitManager","");
-		User dm = new User("departmentManager",passwordEncoder.encode("departmentManager"),"DepartmentManager","");
+		User bm = new User("businessUnitManager",passwordEncoder.encode("businessUnitManager"),"businessUnitManager","");
+		User dm = new User("departmentManager",passwordEncoder.encode("departmentManager"),"departmentManager","");
 		User um = new User("unitManager",passwordEncoder.encode("unitManager"),"unitManager","");
 		User em = new User("employee",passwordEncoder.encode("employee"),"employee","");
 

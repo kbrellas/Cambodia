@@ -2,6 +2,7 @@ package com.example.Project1.mappers;
 
 import com.example.Project1.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -55,7 +56,18 @@ public class TaskMapper {
                 updates).
      */
 
-    public FullTaskInfoResponse mapFullTaskInfoResponse(Task task, List<EmployeeResponse> fetchedEmployees){
+    public FullTaskInfoResponse mapFullTaskInfoResponse(Task task, @Nullable List<EmployeeResponse> fetchedEmployees){
+        if(fetchedEmployees==null){return new FullTaskInfoResponse(
+                task.getId(),
+                task.getTitle(),
+                task.getDesc(),
+                getDifficulty(task),
+                task.getTaskStatus(),
+                null,
+                task.getUpdates()
+        );
+
+        }
         return new FullTaskInfoResponse(
                 task.getId(),
                 task.getTitle(),
@@ -85,5 +97,16 @@ public class TaskMapper {
         //Unreachable Statement not detected by the compiler:
         else
             return Difficulty.NA;
+    }
+
+    public List<Task> mapTasksByDifficulty(Iterable<Task> tasks, String difficulty) {
+        List<Task> tasksByDifficulty = new ArrayList<>();
+        for (Task task : tasks) {
+            System.err.println(getDifficulty(task).toString());
+            if (difficulty.equalsIgnoreCase(getDifficulty(task).toString())) {
+                tasksByDifficulty.add(task);
+            }
+        }
+        return tasksByDifficulty;
     }
 }

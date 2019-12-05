@@ -39,10 +39,19 @@ import javax.sql.DataSource;
                     .antMatchers("/allBusinessUnits").hasAnyRole("admin", "companyManager", "businessUnitManager")
                     .antMatchers("/allDepartments").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager")
                     .antMatchers("/allUnits").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
-                    .antMatchers("/allEmployees").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","employee")
-                    .antMatchers("/createEmployee").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager")
-                    .antMatchers("/updateEmployee").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager")
-                    .antMatchers("/getEmployeeBySearchCriteria").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","employee")
+                    .antMatchers("/allEmployees").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
+                    .antMatchers("/createEmployee").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
+                    .antMatchers("/updateEmployee/{employeeId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
+                    .antMatchers("/getEmployeeBySearchCriteria/{searchCriteria}/{searchId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
+                    .antMatchers("/allTasks").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
+                    .antMatchers("/deleteTask/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
+                    .antMatchers("/findTaskByDifficultyAndNumberOfEmployees/{difficulty}/{numberOfEmployees}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
+                    .antMatchers("/findTaskByDifficulty/{difficulty}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
+                    .antMatchers("/findTaskByNumberOfEmployees/{numberOfEmployees}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
+                    .antMatchers("/findTaskById/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
+                    .antMatchers("/createTask").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
+                    .antMatchers("/updateTask/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
+
                     .and()
                     .httpBasic();
 
