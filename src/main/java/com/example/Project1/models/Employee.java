@@ -35,7 +35,10 @@ public class Employee {
     @ManyToOne
     private Unit unit;
     private String position;
-    @ManyToMany(mappedBy = "employees",cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable( name = "Employee_Task",
+            joinColumns = @JoinColumn(name = "Task_id"),
+            inverseJoinColumns = @JoinColumn(name = "Employee_id"))
     private List<Task> tasks;
 
 

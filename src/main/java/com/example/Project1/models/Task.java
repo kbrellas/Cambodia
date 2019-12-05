@@ -18,10 +18,7 @@ public class Task {
     private TaskStatus taskStatus;
     @ElementCollection
     private List<String> updates;
-    @ManyToMany
-    @JoinTable( name = "Employee_Task",
-                joinColumns = @JoinColumn(name = "Task_id"),
-                inverseJoinColumns = @JoinColumn(name = "Employee_id"))
+    @ManyToMany(mappedBy = "tasks")
     private List<Employee> employees;
 
 
