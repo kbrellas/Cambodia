@@ -52,7 +52,7 @@ import javax.sql.DataSource;
                     .antMatchers("/findTaskById/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
                     .antMatchers("/createTask").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
                     .antMatchers("/updateTask/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
-
+                    .and().httpBasic()
                     .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
 //                    .httpBasic();
 
