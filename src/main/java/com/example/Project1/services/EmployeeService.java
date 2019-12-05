@@ -142,4 +142,14 @@ public class EmployeeService {
         }
         return new GenericResponse<>(fetchedEmployee.get());
     }
+
+    public GenericResponse<EmployeeResponse> deleteEmployee(long employeeId) {
+        Optional<Employee> fetchedEmployee= repository.findById(employeeId);
+        if(fetchedEmployee.isPresent()){
+            repository.deleteById(employeeId);
+            return new GenericResponse<>(mapper.mapEmployeeToEmployeeResponse(fetchedEmployee.get()));
+        }
+        return new GenericResponse<>(new Error(0,"Wrong input","Id does not exist"));
+
+    }
 }

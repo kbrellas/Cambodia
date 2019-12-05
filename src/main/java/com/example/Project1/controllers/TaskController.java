@@ -131,6 +131,15 @@ public class TaskController {
         return new ResponseEntity<>(response.getData(),null,HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteTask/{taskId}")
+    public ResponseEntity deleteTask(@PathVariable long taskId){
+        GenericResponse<TaskResponse> response=service.deleteTask(taskId);
+        if(response.getError()!=null){
+            return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(response.getData(),null,HttpStatus.OK);
+    }
+
     @ExceptionHandler({NumberFormatException.class})
     public ResponseEntity handleNumberFormatException() {
         return new ResponseEntity<>(new Error(0, "Wrong input type", "Id must be type long"),

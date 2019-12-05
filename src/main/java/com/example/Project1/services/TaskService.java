@@ -149,4 +149,13 @@ public class TaskService {
         return new GenericResponse<>(retrievedTask);
 
     }
+
+    public GenericResponse<TaskResponse> deleteTask(long taskId) {
+        Optional<Task> fetchedTask= repository.findById(taskId);
+        if(fetchedTask.isPresent()){
+            repository.deleteById(taskId);
+            return new GenericResponse<>(mapper.mapTaskToTaskResponse(fetchedTask.get()));
+        }
+        return new GenericResponse<>(new Error(0,"Wrong input","Id does not exist"));
+    }
 }

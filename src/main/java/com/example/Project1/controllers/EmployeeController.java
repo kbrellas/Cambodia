@@ -84,6 +84,15 @@ public class EmployeeController {
             return new ResponseEntity<>(response.getData(), null, HttpStatus.OK);
 
     }
+    @DeleteMapping("/deleteEmployee/{employeeId}")
+    public ResponseEntity deleteEmployee(@PathVariable long employeeId){
+        GenericResponse<EmployeeResponse> response= service.deleteEmployee(employeeId);
+        if(response.getError()!=null){
+            return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(response.getData(),null,HttpStatus.OK);
+
+    }
 
 
 
