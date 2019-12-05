@@ -64,7 +64,7 @@ public class TaskControllerShould {
     }
 
     @Test
-    public void returnAllUnits(){
+    public void returnAllTasks(){
         ResponseEntity<List<TaskResponse>> actual=controller.getAllTasks();
         Assert.assertThat(actual.getBody(),hasItems(taskResponse1,taskResponse2,taskResponse3));
         Assert.assertEquals(HttpStatus.OK,actual.getStatusCode());
