@@ -1,12 +1,16 @@
 package com.example.Project1.services;
 
+import com.example.Project1.models.Error;
 import com.example.Project1.models.User;
 import com.example.Project1.models.UserPrincipal;
 import com.example.Project1.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 @Service
@@ -28,5 +32,11 @@ import org.springframework.stereotype.Service;
 
             return userPrincipal;
         }
+
+
+    @ExceptionHandler({UsernameNotFoundException.class})
+    public ResponseEntity handleUsernameNotFoundException(){
+        return new ResponseEntity<>(new Error(0,"Not Found","User does not exist"),null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     }
 

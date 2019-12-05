@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.sql.DataSource;
 
@@ -52,8 +53,8 @@ import javax.sql.DataSource;
                     .antMatchers("/createTask").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
                     .antMatchers("/updateTask/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
 
-                    .and()
-                    .httpBasic();
+                    .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+//                    .httpBasic();
 
 
 
@@ -84,6 +85,11 @@ import javax.sql.DataSource;
             daoAuthenticationProvider.setUserDetailsService(userDetailsService);
 
             return daoAuthenticationProvider;
+        }
+
+        @Bean
+        public AuthenticationEntryPoint authenticationEntryPoint(){
+            return new CustomAuthenticationEntryPoint();
         }
 
     }
