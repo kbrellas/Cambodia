@@ -52,6 +52,18 @@ import javax.sql.DataSource;
                     .antMatchers("/findTaskById/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager","employee")
                     .antMatchers("/createTask").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
                     .antMatchers("/updateTask/{taskId}").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager","unitManager")
+                    .antMatchers("/createCompany").hasAnyRole("admin","companyManager")
+                    .antMatchers("/updateCompany/{companyId}").hasAnyRole("admin","companyManager")
+                    .antMatchers("/createBusinessUnit").hasAnyRole("admin","companyManager","businessUnitManager")
+                    .antMatchers("/updateBusinessUnit/{businessUnitId}").hasAnyRole("admin","companyManager","businessUnitManager")
+                    .antMatchers("/createDepartment").hasAnyRole("admin","companyManager","businessUnitManager","departmentManager")
+                    .antMatchers("/updateDepartment/{departmentId}").hasAnyRole("admin","companyManager","businessUnitManager","departmentManager")
+                    .antMatchers("/createUnit").hasAnyRole("admin","companyManager","businessUnitManager","departmentManager","unitManager")
+                    .antMatchers("/updateUnit/{unitId}").hasAnyRole("admin","companyManager","businessUnitManager","departmentManager","unitManager")
+
+
+
+
                     .and().httpBasic()
                     .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
 //                    .httpBasic();

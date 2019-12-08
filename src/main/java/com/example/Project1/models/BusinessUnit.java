@@ -1,6 +1,9 @@
 package com.example.Project1.models;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class BusinessUnit {
@@ -8,9 +11,13 @@ public class BusinessUnit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-
     @ManyToOne
+    @JoinTable( name = "Company_BusinessUnit",
+            joinColumns = @JoinColumn(name = "Company_Id"),
+            inverseJoinColumns = @JoinColumn(name = "BusinessUnit_id"))
     private Company company;
+
+
 
     public BusinessUnit(String name, Company company) {
         this.name = name;

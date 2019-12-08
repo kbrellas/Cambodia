@@ -1,5 +1,6 @@
 package com.example.Project1.controllers;
 
+import com.example.Project1.Interactors.TaskEmployeeInterractor;
 import com.example.Project1.models.*;
 import com.example.Project1.models.Error;
 import com.example.Project1.repositories.EmployeeRepository;
@@ -23,6 +24,8 @@ public class EmployeeController {
 
 
     private EmployeeToUnitAssociator associator;
+
+
 
     public EmployeeController(EmployeeService service, EmployeeToUnitAssociator associator) {
         this.service = service;
@@ -84,15 +87,7 @@ public class EmployeeController {
             return new ResponseEntity<>(response.getData(), null, HttpStatus.OK);
 
     }
-    @DeleteMapping("/deleteEmployee/{employeeId}")
-    public ResponseEntity deleteEmployee(@PathVariable long employeeId){
-        GenericResponse<EmployeeResponse> response= service.deleteEmployee(employeeId);
-        if(response.getError()!=null){
-            return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(response.getData(),null,HttpStatus.OK);
 
-    }
 
 
 

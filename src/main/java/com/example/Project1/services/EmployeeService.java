@@ -6,12 +6,15 @@ import com.example.Project1.models.*;
 import com.example.Project1.implementations.SearchEmployeeStrategyFactory;
 import com.example.Project1.models.Error;
 import com.example.Project1.repositories.EmployeeRepository;
+import com.example.Project1.repositories.TaskRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.*;
@@ -27,6 +30,9 @@ public class EmployeeService {
 
 
     private SearchEmployeeStrategyFactory factory;
+
+    @Autowired
+    private EntityManager manager;
 
     public EmployeeService(EmployeeMapper mapper, EmployeeRepository repository, SearchEmployeeStrategyFactory factory) {
         this.mapper = mapper;
@@ -143,13 +149,4 @@ public class EmployeeService {
         return new GenericResponse<>(fetchedEmployee.get());
     }
 
-    public GenericResponse<EmployeeResponse> deleteEmployee(long employeeId) {
-        Optional<Employee> fetchedEmployee= repository.findById(employeeId);
-        if(fetchedEmployee.isPresent()){
-            repository.deleteById(employeeId);
-            return new GenericResponse<>(mapper.mapEmployeeToEmployeeResponse(fetchedEmployee.get()));
-        }
-        return new GenericResponse<>(new Error(0,"Wrong input","Id does not exist"));
-
-    }
 }

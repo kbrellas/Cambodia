@@ -18,7 +18,7 @@ public class Task {
     private TaskStatus taskStatus;
     @ElementCollection
     private List<String> updates;
-    @ManyToMany(mappedBy = "tasks")
+    @ManyToMany
     private List<Employee> employees;
 
 

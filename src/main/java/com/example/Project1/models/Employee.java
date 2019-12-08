@@ -1,5 +1,7 @@
 package com.example.Project1.models;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -25,21 +27,23 @@ public class Employee {
     private Status status;
 
     private ContractType contractType;
+
     @ManyToOne
     private Company company;
     @ManyToOne
     private BusinessUnit businessUnit;
     @ManyToOne
-
     private Department department;
     @ManyToOne
+    @JoinTable( name = "Unit_Employee",
+            joinColumns = @JoinColumn(name = "Unit_id"),
+            inverseJoinColumns = @JoinColumn(name = "Employee_id"))
     private Unit unit;
     private String position;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable( name = "Employee_Task",
-            joinColumns = @JoinColumn(name = "Task_id"),
-            inverseJoinColumns = @JoinColumn(name = "Employee_id"))
-    private List<Task> tasks;
+
+
+
+
 
 
 
@@ -229,7 +233,6 @@ public class Employee {
     public String getUnitName() {
         return this.unit.getName();
     }
-
 
 
 }

@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -70,6 +71,7 @@ public class EmployeeFeatures {
     }
 
     @Test
+    @Transactional
     public void updateEmployee(){
         try{
             mockMvc.perform(MockMvcRequestBuilders.patch("/updateEmployee/1").content(

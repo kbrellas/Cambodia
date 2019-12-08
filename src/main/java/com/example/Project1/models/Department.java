@@ -1,6 +1,7 @@
 package com.example.Project1.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Department {
@@ -9,7 +10,12 @@ public class Department {
     private long id;
     private String name;
     @ManyToOne
+    @JoinTable( name = "BusinessUnit_Department",
+            joinColumns = @JoinColumn(name = "Department_id"),
+            inverseJoinColumns = @JoinColumn(name = "BusinessUnit_id"))
     private BusinessUnit businessUnit;
+
+
 
     public Department(String name, BusinessUnit businessUnit) {
         this.name = name;
