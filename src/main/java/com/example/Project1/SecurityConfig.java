@@ -35,7 +35,7 @@ import javax.sql.DataSource;
                     .authorizeRequests()
 
 
-                    //.antMatchers("/").hasRole("admin")
+                    .antMatchers("/").permitAll()
                     .antMatchers("/allCompanies").hasAnyRole("admin", "companyManager")
                     .antMatchers("/allBusinessUnits").hasAnyRole("admin", "companyManager", "businessUnitManager")
                     .antMatchers("/allDepartments").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager")
