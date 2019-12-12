@@ -33,13 +33,8 @@ import javax.sql.DataSource;
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable()
-
-<<<<<<< HEAD
-                    .antMatchers("/").permitAll()
-=======
                     .authorizeRequests()
                     .antMatchers("/").hasRole("admin")
->>>>>>> dev
                     .antMatchers("/allCompanies").hasAnyRole("admin", "companyManager")
                     .antMatchers("/allBusinessUnits").hasAnyRole("admin", "companyManager", "businessUnitManager")
                     .antMatchers("/allDepartments").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager")
