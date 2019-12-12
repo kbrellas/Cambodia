@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 @Configuration
@@ -32,10 +33,13 @@ import javax.sql.DataSource;
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable()
-                    .authorizeRequests()
 
-
+<<<<<<< HEAD
                     .antMatchers("/").permitAll()
+=======
+                    .authorizeRequests()
+                    .antMatchers("/").hasRole("admin")
+>>>>>>> dev
                     .antMatchers("/allCompanies").hasAnyRole("admin", "companyManager")
                     .antMatchers("/allBusinessUnits").hasAnyRole("admin", "companyManager", "businessUnitManager")
                     .antMatchers("/allDepartments").hasAnyRole("admin", "companyManager", "businessUnitManager", "departmentManager")
@@ -61,15 +65,20 @@ import javax.sql.DataSource;
                     .antMatchers("/createUnit").hasAnyRole("admin","companyManager","businessUnitManager","departmentManager","unitManager")
                     .antMatchers("/updateUnit/{unitId}").hasAnyRole("admin","companyManager","businessUnitManager","departmentManager","unitManager")
 
+                    .anyRequest().fullyAuthenticated()
 
 
 
-                    .and().httpBasic()
-                    .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
-//                    .httpBasic();
+                    .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint())
+                    .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
 
-
-
+                    .and()
+                    .logout()
+                    .logoutSuccessUrl("/")
+                    .clearAuthentication(true)
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true);
+            
         }
 
 
