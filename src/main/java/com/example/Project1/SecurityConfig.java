@@ -66,11 +66,15 @@ import javax.sql.DataSource;
 
 
                     .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint())
-                    .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+                    .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
 
-
-
-
+                    .and()
+                    .logout()
+                    .logoutSuccessUrl("/")
+                    .clearAuthentication(true)
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true);
+            
         }
 
 
@@ -102,6 +106,8 @@ import javax.sql.DataSource;
 
         @Bean
         public AuthenticationEntryPoint authenticationEntryPoint(){
+           // return (request, response, authException) -> response.sendError(403,"Wrong Credentials. Username or password does not exist");
+
             return new CustomAuthenticationEntryPoint();
         }
 
