@@ -106,8 +106,6 @@ import javax.sql.DataSource;
 
         @Bean
         public AuthenticationEntryPoint authenticationEntryPoint(){
-           // return (request, response, authException) -> response.sendError(403,"Wrong Credentials. Username or password does not exist");
-
             return new CustomAuthenticationEntryPoint();
         }
 
