@@ -30,7 +30,7 @@ public class User {
 }*/
 @Entity
 
-public class User {
+public class CustomUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,7 +48,7 @@ public class User {
 
     private String permissions = "";
 
-    public User(String username, String password, String roles, String permissions){
+    public CustomUser(String username, String password, String roles, String permissions){
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -56,7 +56,7 @@ public class User {
         this.active = 1;
     }
 
-    protected User(){}
+    protected CustomUser(){}
 
     public long getId() {
         return id;

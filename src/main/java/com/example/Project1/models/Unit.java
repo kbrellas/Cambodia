@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "unit")
 public class Unit {
 
     @Id
@@ -11,9 +12,9 @@ public class Unit {
     private long id;
     private String name;
     @ManyToOne
-    @JoinTable( name = "Department_Unit",
+   /* @JoinTable( name = "Department_Unit",
             joinColumns = @JoinColumn(name = "Unit_id"),
-            inverseJoinColumns = @JoinColumn(name = "Department_id"))
+            inverseJoinColumns = @JoinColumn(name = "Department_id"))*/
     private Department department;
 
 

@@ -1,7 +1,7 @@
 package com.example.Project1.services;
 
 import com.example.Project1.models.Error;
-import com.example.Project1.models.User;
+import com.example.Project1.models.CustomUser;
 import com.example.Project1.models.UserPrincipal;
 import com.example.Project1.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
         @Override
         public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-            User user = this.userRepository.findByUsername(s);
+            CustomUser user = this.userRepository.findByUsername(s);
             UserPrincipal userPrincipal = new UserPrincipal(user);
 
             return userPrincipal;

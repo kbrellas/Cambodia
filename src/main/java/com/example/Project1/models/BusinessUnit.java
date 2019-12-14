@@ -6,15 +6,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "business_unit")
 public class BusinessUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     @ManyToOne
-    @JoinTable( name = "Company_BusinessUnit",
+    /*@JoinTable( name = "Company_BusinessUnit",
             joinColumns = @JoinColumn(name = "Company_Id"),
-            inverseJoinColumns = @JoinColumn(name = "BusinessUnit_id"))
+            inverseJoinColumns = @JoinColumn(name = "BusinessUnit_id"))*/
     private Company company;
 
 

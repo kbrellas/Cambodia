@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "employee")
 public class Employee {
 
     @Id
@@ -35,9 +36,9 @@ public class Employee {
     @ManyToOne
     private Department department;
     @ManyToOne
-    @JoinTable( name = "Unit_Employee",
+    /*@JoinTable( name = "Unit_Employee",
             joinColumns = @JoinColumn(name = "Unit_id"),
-            inverseJoinColumns = @JoinColumn(name = "Employee_id"))
+            inverseJoinColumns = @JoinColumn(name = "Employee_id"))*/
     private Unit unit;
     private String position;
 

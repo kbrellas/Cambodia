@@ -6,12 +6,13 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-    private String desc;
+    private String description;
     private int estimationA;
     private int estimationB;
     private int estimationC;
@@ -22,9 +23,9 @@ public class Task {
     private List<Employee> employees;
 
 
-    public Task(String title, String desc, int estimationA, int estimationB, int estimationC, TaskStatus taskStatus, List<String> updates, List<Employee> employees) {
+    public Task(String title, String description, int estimationA, int estimationB, int estimationC, TaskStatus taskStatus, List<String> updates, List<Employee> employees) {
         this.title = title;
-        this.desc = desc;
+        this.description = description;
         this.estimationA = estimationA;
         this.estimationB = estimationB;
         this.estimationC = estimationC;
@@ -53,12 +54,12 @@ public class Task {
         this.title = title;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getEstimationA() {
