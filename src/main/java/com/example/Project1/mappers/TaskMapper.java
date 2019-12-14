@@ -1,7 +1,6 @@
 package com.example.Project1.mappers;
 
 import com.example.Project1.models.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +38,7 @@ public class TaskMapper {
         return new TaskResponse(
                 task.getId(),
                 task.getTitle(),
-                task.getDesc(),
+                task.getDescription(),
                 getDifficulty(task),
                 task.getTaskStatus()
         );
@@ -60,7 +59,7 @@ public class TaskMapper {
         if(fetchedEmployees==null){return new FullTaskInfoResponse(
                 task.getId(),
                 task.getTitle(),
-                task.getDesc(),
+                task.getDescription(),
                 getDifficulty(task),
                 task.getTaskStatus(),
                 null,
@@ -71,7 +70,7 @@ public class TaskMapper {
         return new FullTaskInfoResponse(
                 task.getId(),
                 task.getTitle(),
-                task.getDesc(),
+                task.getDescription(),
                 getDifficulty(task),
                 task.getTaskStatus(),
                 fetchedEmployees,

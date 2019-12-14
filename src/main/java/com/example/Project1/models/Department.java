@@ -4,15 +4,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "department")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     @ManyToOne
-    @JoinTable( name = "BusinessUnit_Department",
+    /*@JoinTable( name = "BusinessUnit_Department",
             joinColumns = @JoinColumn(name = "Department_id"),
-            inverseJoinColumns = @JoinColumn(name = "BusinessUnit_id"))
+            inverseJoinColumns = @JoinColumn(name = "BusinessUnit_id"))*/
     private BusinessUnit businessUnit;
 
 

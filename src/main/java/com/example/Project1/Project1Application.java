@@ -5,9 +5,7 @@ import com.example.Project1.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -218,14 +216,14 @@ public class Project1Application implements CommandLineRunner {
 		taskRepository.save(task10);
 
 
-		User admin = new User("admin",passwordEncoder.encode("admin"),"admin","");
-		User cm = new User("companyManager",passwordEncoder.encode("companyManager"),"companyManager","");
-		User bm = new User("businessUnitManager",passwordEncoder.encode("businessUnitManager"),"businessUnitManager","");
-		User dm = new User("departmentManager",passwordEncoder.encode("departmentManager"),"departmentManager","");
-		User um = new User("unitManager",passwordEncoder.encode("unitManager"),"unitManager","");
-		User em = new User("employee",passwordEncoder.encode("employee"),"employee","");
+		CustomUser admin = new CustomUser("admin",passwordEncoder.encode("admin"),"admin","");
+		CustomUser cm = new CustomUser("companyManager",passwordEncoder.encode("companyManager"),"companyManager","");
+		CustomUser bm = new CustomUser("businessUnitManager",passwordEncoder.encode("businessUnitManager"),"businessUnitManager","");
+		CustomUser dm = new CustomUser("departmentManager",passwordEncoder.encode("departmentManager"),"departmentManager","");
+		CustomUser um = new CustomUser("unitManager",passwordEncoder.encode("unitManager"),"unitManager","");
+		CustomUser em = new CustomUser("employee",passwordEncoder.encode("employee"),"employee","");
 
-		List<User> users = Arrays.asList(admin,cm,dm,um,bm,em);
+		List<CustomUser> users = Arrays.asList(admin,cm,dm,um,bm,em);
 
 
 		userRepository.saveAll(users);

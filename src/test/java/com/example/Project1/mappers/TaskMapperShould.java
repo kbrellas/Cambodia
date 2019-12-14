@@ -81,8 +81,8 @@ public class TaskMapperShould {
 
     @Test
     public void keepSameDescription(){
-        Assert.assertEquals(taskInput1.getDesc(),mapper.mapTaskToTaskResponse(taskInput1).getDesc());
-        Assert.assertEquals(taskInput2.getDesc(),mapper.mapTaskToTaskResponse(taskInput2).getDesc());
+        Assert.assertEquals(taskInput1.getDescription(),mapper.mapTaskToTaskResponse(taskInput1).getDesc());
+        Assert.assertEquals(taskInput2.getDescription(),mapper.mapTaskToTaskResponse(taskInput2).getDesc());
     }
 
     @Test
